@@ -4,6 +4,8 @@
 public class Ball : MonoBehaviour
 {
     public float speed = 200f;
+    [SerializeField] private GameObject ballHitEffect;
+
     public new Rigidbody2D rigidbody { get; private set; }
 
     private void Awake()
@@ -29,6 +31,25 @@ public class Ball : MonoBehaviour
 
         Vector2 direction = new Vector2(x, y);
         rigidbody.AddForce(direction * speed);
+    }
+
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        var pos = col.collider.ClosestPoint(transform.position);
+        ballHitEffect.SetActive(false);
+        ballHitEffect.transform.position = pos;
+        ballHitEffect.SetActive(true);
+
+        if(col.gameObject.name == "LeftSidePlayer")
+        {
+            var _animator =  col.gameObject.GetComponent<Animator>();
+            _animator.Play("LeftSidePlayerHit");
+        }
+        if(col.gameObject.name == "RightSidePlayer")
+        {
+            var _animator =  col.gameObject.GetComponent<Animator>();
+            _animator.Play("RightSidePlayerHit");
+        }
     }
 
 }

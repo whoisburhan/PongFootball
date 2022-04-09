@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,13 @@ public class GameManager : MonoBehaviour
     public Paddle computerPaddle;
     public int computerScore { get; private set; }
     public Text computerScoreText;
+
+    [Header("Goal Score Sptries")]
+    [SerializeField] private List<Sprite> scoreTextSprites;
+    [Space]
+    [SerializeField] private SpriteRenderer leftSidePlayerScoreRenderer;
+    [SerializeField] private SpriteRenderer rightSidePlayerScoreRenderer;
+
 
     private void Start()
     {
@@ -27,8 +35,8 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        SetPlayerScore(0);
-        SetComputerScore(0);
+      //  SetPlayerScore(0);
+      //  SetComputerScore(0);
         StartRound();
     }
 
@@ -54,14 +62,24 @@ public class GameManager : MonoBehaviour
 
     private void SetPlayerScore(int score)
     {
+        Debug.Log("A");
         playerScore = score;
-        playerScoreText.text = score.ToString();
+       // playerScoreText.text = score.ToString();
+       ScoreGraphicsUpdate(rightSidePlayerScoreRenderer, score);
     }
 
     private void SetComputerScore(int score)
     {
+        Debug.Log("COMPUTER");
         computerScore = score;
-        computerScoreText.text = score.ToString();
+       // computerScoreText.text = score.ToString();
+       ScoreGraphicsUpdate(leftSidePlayerScoreRenderer, score);
+    }
+
+    private void ScoreGraphicsUpdate(SpriteRenderer _sr, int score)
+    {
+        if(score >= 0 && score<scoreTextSprites.Count)
+            _sr.sprite = scoreTextSprites[score];
     }
 
 }
