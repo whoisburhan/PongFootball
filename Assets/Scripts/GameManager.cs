@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
+using System.Collections;
 
 namespace GS.PongFootball
 {
@@ -17,6 +19,8 @@ namespace GS.PongFootball
         public Paddle computerPaddle;
         public int computerScore { get; private set; }
         public Text computerScoreText;
+
+        public int TargetGoal = 9;
 
         [Header("Goal Score Sptries")]
         [SerializeField] private List<Sprite> scoreTextSprites;
@@ -66,18 +70,28 @@ namespace GS.PongFootball
 
         public void StartRound()
         {
-            AudioManager.Instance.Play(AudioName.FREE_KICK);
-            playerPaddle.ResetPosition();
-            computerPaddle.ResetPosition();
-            
-            ball.gameObject.SetActive(true);
-            
-            
-            ball.ResetPosition();
-            ball.AddStartingForce();
-            ball.GetComponent<TrailRenderer>().enabled = true;
-            ball.GetComponent<TrailRenderer>().Clear();
-            
+            if (playerScore < 9 && computerScore < 9)
+            {
+                StartCoroutine(Delay(() =>
+                {
+                    AudioManager.Instance.Play(AudioName.FREE_KICK);
+                    playerPaddle.ResetPosition();
+                    computerPaddle.ResetPosition();
+
+                    ball.gameObject.SetActive(true);
+
+
+                    ball.ResetPosition();
+                    ball.AddStartingForce();
+                    ball.GetComponent<TrailRenderer>().enabled = true;
+                    ball.GetComponent<TrailRenderer>().Clear();
+                }, 1.5f));
+            }
+            else
+            {
+                Debug.Log("GAME OVER");
+            }
+
         }
 
         public void PlayerScores()
@@ -115,5 +129,10 @@ namespace GS.PongFootball
                 _sr.sprite = scoreTextSprites[score];
         }
 
+        IEnumerator Delay(Action action, float delayTime)
+        {
+            yield return new WaitForSeconds(delayTime);
+            action?.Invoke();
+        }
     }
 }

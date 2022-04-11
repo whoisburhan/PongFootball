@@ -8,7 +8,7 @@ public class ComputerPaddle : Paddle
     {
         // Check if the ball is moving towards the paddle (positive x velocity)
         // or away from the paddle (negative x velocity)
-        if (ball.velocity.x > 0f)
+        if (ball.velocity.x < 0f)
         {
             // Move the paddle in the direction of the ball to track it
             if (ball.position.y > rigidbody.position.y) {

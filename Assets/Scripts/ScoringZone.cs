@@ -21,9 +21,14 @@ namespace GS.PongFootball
                 goalTextObjecct.SetActive(false);
                 goalTextObjecct.SetActive(true);
                 AudioManager.Instance.Play(AudioName.GOAL_SOUND);
+                CameraShake.Instance.Shake(0.7f);
                 ball.GetComponent<TrailRenderer>().enabled = false;
                 ball.GetComponent<TrailRenderer>().Clear();
                 ball.gameObject.SetActive(false);
+
+                #if UNITY_ANDROID && !UNITY_EDITOR
+                Vibrator.Vibrate(700);
+                #endif
 
             }
         }
