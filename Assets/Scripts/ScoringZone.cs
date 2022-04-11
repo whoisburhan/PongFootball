@@ -26,9 +26,13 @@ namespace GS.PongFootball
                 ball.GetComponent<TrailRenderer>().Clear();
                 ball.gameObject.SetActive(false);
 
-                #if UNITY_ANDROID && !UNITY_EDITOR
-                Vibrator.Vibrate(700);
-                #endif
+#if UNITY_ANDROID && !UNITY_EDITOR
+
+                if(GameManager.Instance.IsVibrateModeOn)
+                {
+                    Vibrator.Vibrate(700);
+                }
+#endif
 
             }
         }

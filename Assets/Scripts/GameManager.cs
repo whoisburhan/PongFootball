@@ -10,6 +10,9 @@ namespace GS.PongFootball
     {
         public static GameManager Instance { get; private set; }
 
+        public bool IsVibrateModeOn;
+        public bool IsSoundModeOn;
+
         public Ball ball;
 
         public Paddle playerPaddle;
@@ -45,7 +48,10 @@ namespace GS.PongFootball
         }
         private void Start()
         {
-            StartCountDown();
+            IsVibrateModeOn = true;
+            IsSoundModeOn = true;
+
+           // StartCountDown();
         }
 
         private void Update()
@@ -60,6 +66,8 @@ namespace GS.PongFootball
         {
             countDownObject.SetActive(false);
             countDownObject.SetActive(true);
+            SetPlayerScore(0);
+            SetComputerScore(0);
         }
         public void NewGame()
         {
@@ -109,7 +117,6 @@ namespace GS.PongFootball
 
         private void SetPlayerScore(int score)
         {
-            Debug.Log("A");
             playerScore = score;
             // playerScoreText.text = score.ToString();
             ScoreGraphicsUpdate(rightSidePlayerScoreRenderer, score);
@@ -117,7 +124,6 @@ namespace GS.PongFootball
 
         private void SetComputerScore(int score)
         {
-            Debug.Log("COMPUTER");
             computerScore = score;
             // computerScoreText.text = score.ToString();
             ScoreGraphicsUpdate(leftSidePlayerScoreRenderer, score);

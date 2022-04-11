@@ -43,7 +43,7 @@ namespace GS.PongFootball
         public Button confirmationButton;
 
         [Header("Common Sprites for Sound & Vibration Settings")]
-        
+
         public Sprite OnButtonSprite;
         public Sprite OffButtonSprite;
 
@@ -64,7 +64,7 @@ namespace GS.PongFootball
         [Space]
         public Button leftSideArrowButton;
         public Button rightSideArrowButton;
-        
+
     }
 
     [Serializable]
@@ -100,7 +100,7 @@ namespace GS.PongFootball
 
         [Header("Buttons")]
         public Button homeButton;
-        public Button restartButton,optionsButton, rateButton;
+        public Button restartButton, optionsButton, rateButton;
     }
 
     public class UIManager : MonoBehaviour
@@ -135,6 +135,9 @@ namespace GS.PongFootball
         {
             ActivateStartMenuCanvas();
             DeActivatePauseButtonUI();
+
+            //Init All the button function
+            InItStartMenuButtonsFunc();
         }
 
         public void ActivatePauseButtonUI()
@@ -147,15 +150,14 @@ namespace GS.PongFootball
             pasueButton.gameObject.SetActive(false);
         }
 
-        #region Canvas Animations
-
+        #region Start Menu Canvas Func
         public void ActivateStartMenuCanvas()
         {
             startMenuCanvasClass.startMenuCanvasGroup.alpha = 1;
             startMenuCanvasClass.startMenuCanvasGroup.interactable = true;
             startMenuCanvasClass.startMenuCanvasGroup.blocksRaycasts = true;
-            startMenuCanvasClass.startMenuButtonsParentTransform.DOScale(Vector3.one, 0.5f);
-            startMenuCanvasClass.titleImgTransform.DOMove(startMenuCanvasClass.titleImgEndPos.position, 0.5f);
+            startMenuCanvasClass.startMenuButtonsParentTransform.DOScale(Vector3.one, 1f);
+            startMenuCanvasClass.titleImgTransform.DOMove(startMenuCanvasClass.titleImgEndPos.position, 1f);
 
         }
 
@@ -167,6 +169,45 @@ namespace GS.PongFootball
             startMenuCanvasClass.titleImgTransform.DOMove(startMenuCanvasClass.titleImgStartPos.position, 0.5f);
         }
 
+        private void InItStartMenuButtonsFunc()
+        {
+            startMenuCanvasClass.playButton.onClick.AddListener(() => { PlayButtonFunc(); });
+
+            startMenuCanvasClass.rateButton.onClick.AddListener(() => { RateButtonFunc(); });
+
+            startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); });
+
+            startMenuCanvasClass.shareButton.onClick.AddListener(() => { ShareButtonFunc(); });
+
+            startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { MoreGamesButtonFunc(); });
+        }
+
+        private void PlayButtonFunc()
+        {
+            DeActivateStartMenuCanvas();
+            GameManager.Instance.StartCountDown();
+            ActivatePauseButtonUI();
+        }
+
+        private void RateButtonFunc()
+        {
+
+        }
+
+        private void OptionsButtonFunc()
+        {
+
+        }
+
+        private void ShareButtonFunc()
+        {
+
+        }
+
+        private void MoreGamesButtonFunc()
+        {
+
+        }
         #endregion
     }
 }
