@@ -1,18 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class ScoringZone : MonoBehaviour
+namespace GS.PongFootball
 {
-    public UnityEvent scoreTrigger;
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class ScoringZone : MonoBehaviour
     {
-        Ball ball = collision.gameObject.GetComponent<Ball>();
+        public UnityEvent scoreTrigger;
 
-        if (ball != null) {
-            scoreTrigger.Invoke();
+        [SerializeField] private GameObject goalTextObjecct;
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Ball ball = collision.gameObject.GetComponent<Ball>();
+
+            if (ball != null)
+            {
+                scoreTrigger.Invoke();
+
+                goalTextObjecct.SetActive(false);
+                goalTextObjecct.SetActive(true);
+                AudioManager.Instance.Play(AudioName.GOAL_SOUND);
+                ball.GetComponent<TrailRenderer>().enabled = false;
+                ball.GetComponent<TrailRenderer>().Clear();
+                ball.gameObject.SetActive(false);
+
+            }
         }
-    }
 
+    }
 }

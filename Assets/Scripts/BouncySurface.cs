@@ -1,21 +1,24 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class BouncySurface : MonoBehaviour
+namespace GS.PongFootball
 {
-    public float bounceStrength = 1f;
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class BouncySurface : MonoBehaviour
     {
-        Ball ball = collision.gameObject.GetComponent<Ball>();
+        public float bounceStrength = 1f;
 
-        if (ball != null)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            // Apply a force to the ball in the opposite direction of the
-            // surface to make it bounce off
-            Vector2 normal = collision.GetContact(0).normal;
-            ball.rigidbody.AddForce(-normal * bounceStrength, ForceMode2D.Impulse);
-        }
-    }
+            Ball ball = collision.gameObject.GetComponent<Ball>();
 
+            if (ball != null)
+            {
+                // Apply a force to the ball in the opposite direction of the
+                // surface to make it bounce off
+                Vector2 normal = collision.GetContact(0).normal;
+                ball.rigidbody.AddForce(-normal * bounceStrength, ForceMode2D.Impulse);
+            }
+        }
+
+    }
 }
