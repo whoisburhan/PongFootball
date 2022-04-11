@@ -70,7 +70,7 @@ namespace GS.PongFootball
 
         public void StartRound()
         {
-            if (playerScore < 9 && computerScore < 9)
+            if (playerScore < TargetGoal && computerScore < TargetGoal)
             {
                 StartCoroutine(Delay(() =>
                 {
