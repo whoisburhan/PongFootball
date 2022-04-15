@@ -25,6 +25,7 @@ namespace GS.PongFootball
                 ball.GetComponent<TrailRenderer>().enabled = false;
                 ball.GetComponent<TrailRenderer>().Clear();
                 ball.gameObject.SetActive(false);
+                UIManager.Instance.DeActivatePauseButtonInterectable();
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 

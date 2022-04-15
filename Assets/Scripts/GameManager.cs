@@ -6,12 +6,23 @@ using System.Collections;
 
 namespace GS.PongFootball
 {
+    public enum DifficultyLevel
+    {
+        EASY = 0, MEDIUM, HARD
+    }
+
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
 
         public bool IsVibrateModeOn;
         public bool IsSoundModeOn;
+
+        public bool IsPlay;
+
+        public bool IsAllowedToQuit = true;
+
+        public DifficultyLevel GameDifficultyLevel;
 
         public Ball ball;
 
@@ -22,6 +33,8 @@ namespace GS.PongFootball
         public Paddle computerPaddle;
         public int computerScore { get; private set; }
         public Text computerScoreText;
+
+        [HideInInspector] public Vector2 tempVelocityStore = Vector2.zero;
 
         public int TargetGoal = 9;
 
@@ -50,8 +63,9 @@ namespace GS.PongFootball
         {
             IsVibrateModeOn = true;
             IsSoundModeOn = true;
-
-           // StartCountDown();
+            IsPlay = false;
+            ball.gameObject.SetActive(false);
+            // StartCountDown();
         }
 
         private void Update()
@@ -64,10 +78,13 @@ namespace GS.PongFootball
 
         public void StartCountDown()
         {
+            UIManager.Instance.SetUIState(UI_State.Null);
+            ball.gameObject.SetActive(false);
             countDownObject.SetActive(false);
             countDownObject.SetActive(true);
             SetPlayerScore(0);
             SetComputerScore(0);
+            UIManager.Instance.DeActivatePauseButtonInterectable();
         }
         public void NewGame()
         {
@@ -80,6 +97,7 @@ namespace GS.PongFootball
         {
             if (playerScore < TargetGoal && computerScore < TargetGoal)
             {
+                IsPlay = true;
                 StartCoroutine(Delay(() =>
                 {
                     AudioManager.Instance.Play(AudioName.FREE_KICK);
@@ -93,10 +111,13 @@ namespace GS.PongFootball
                     ball.AddStartingForce();
                     ball.GetComponent<TrailRenderer>().enabled = true;
                     ball.GetComponent<TrailRenderer>().Clear();
+                    UIManager.Instance.ActivatePauseButtonInterectable();
                 }, 1.5f));
             }
             else
             {
+                IsPlay = false;
+                UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore);
                 Debug.Log("GAME OVER");
             }
 
@@ -133,6 +154,28 @@ namespace GS.PongFootball
         {
             if (score >= 0 && score < scoreTextSprites.Count)
                 _sr.sprite = scoreTextSprites[score];
+        }
+
+        public void DeActivateBallToPause()
+        {
+            Vector2 _velocity = ball.GetComponent<Rigidbody2D>().velocity;
+            if (_velocity != Vector2.zero)
+            {
+                tempVelocityStore = ball.GetComponent<Rigidbody2D>().velocity;
+            }
+            ball.gameObject.SetActive(false);
+        }
+        public void ActivateBallFromPause()
+        {
+            ball.gameObject.SetActive(true);
+            if (tempVelocityStore != Vector2.zero)
+            {
+                ball.GetComponent<Rigidbody2D>().velocity = tempVelocityStore;
+            }
+            else
+            {
+                StartRound();
+            }
         }
 
         IEnumerator Delay(Action action, float delayTime)

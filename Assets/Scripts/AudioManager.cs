@@ -33,6 +33,11 @@ namespace GS.PongFootball
             audioSource.PlayOneShot(sounds[(int)audioName]);
         }
 
+        public void MuteUnmute(bool isMute)
+        {
+            audioSource.mute = isMute;
+        }
+
 
     }
 
