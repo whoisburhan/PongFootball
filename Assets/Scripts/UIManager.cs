@@ -158,6 +158,7 @@ namespace GS.PongFootball
             InitResultMenuButtonsFunc();
             InitOptionsMenuButtonsFunc();
             InitQuitMenuButtonsFunc();
+            InitRestartConfimationMenuButtonsFunc();
         }
 
         private void Update()
@@ -303,7 +304,7 @@ namespace GS.PongFootball
                 Home();
             });
 
-            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { });
+            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc();});
 
             pauseMenuCanvasClass.optionsButton.onClick.AddListener(() => { PauseMenuOptionsButtonFunc(); });
 
@@ -313,6 +314,11 @@ namespace GS.PongFootball
         private void PauseButtonFunc()
         {
             ActivatePauseMenuCanvas();
+        }
+        
+        private void PauseMenuRestartButtonFunc()
+        {
+            DeActivatePauseMenuCanvas(false,() => { ActivateReStartConfimationMenuCanvas(); });
         }
 
         private void PauseMenuOptionsButtonFunc()
@@ -365,11 +371,15 @@ namespace GS.PongFootball
                 DeActivateResultMenuCanvas();
                 Home();
             });
-            resultCanvasClass.restartButton.onClick.AddListener(() => { });
+            resultCanvasClass.restartButton.onClick.AddListener(() => { ResultMenuRestartButtonFunc(); });
             resultCanvasClass.optionsButton.onClick.AddListener(() => { ResultMenuOptionsButtonFunc(); });
             resultCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); });
         }
 
+        private void ResultMenuRestartButtonFunc()
+        {
+            DeActivateResultMenuCanvas(() => { ActivateReStartConfimationMenuCanvas(); });
+        }
         private void ResultMenuOptionsButtonFunc()
         {
             DeActivateResultMenuCanvas(() =>
@@ -516,7 +526,7 @@ namespace GS.PongFootball
 
         #endregion
 
-        #region  Quit Confirmation Menu Canvas Func
+        #region Quit Confirmation Menu Canvas Func
 
         private void GameQuitRequestFunc()
         {
@@ -525,13 +535,13 @@ namespace GS.PongFootball
                 switch (currentUIState)
                 {
                     case UI_State.Null:
-                       /* if (GameManager.Instance.IsPlay)    // To avoid Quit Menu Pop Up In CountDown Animation
-                        {
-                            GameManager.Instance.IsPlay = false;
-                            GameManager.Instance.DeActivateBallToPause();
-                            DeActivatePauseButtonUI();
-                            ActivateQuitConfimationMenuCanvas();
-                        }*/
+                        /* if (GameManager.Instance.IsPlay)    // To avoid Quit Menu Pop Up In CountDown Animation
+                         {
+                             GameManager.Instance.IsPlay = false;
+                             GameManager.Instance.DeActivateBallToPause();
+                             DeActivatePauseButtonUI();
+                             ActivateQuitConfimationMenuCanvas();
+                         }*/
                         break;
                     case UI_State.StartMenu:
                         DeActivateStartMenuCanvas(() => { ActivateQuitConfimationMenuCanvas(); });
@@ -576,8 +586,8 @@ namespace GS.PongFootball
                 {
                     case UI_State.Null:
                         //GameManager.Instance.ActivateBallFromPause();
-                       // GameManager.Instance.IsPlay = true;
-                       // ActivatePauseButtonUI();
+                        // GameManager.Instance.IsPlay = true;
+                        // ActivatePauseButtonUI();
                         break;
                     case UI_State.StartMenu:
                         ActivateStartMenuCanvas();
@@ -589,7 +599,7 @@ namespace GS.PongFootball
                         //ActivateOptionsMenuCanvas(false);
                         break;
                     case UI_State.ResultMenu:
-                       // ActivateResultMenuCanvas(tempWinStatus);
+                        // ActivateResultMenuCanvas(tempWinStatus);
                         break;
 
                 }
@@ -610,6 +620,56 @@ namespace GS.PongFootball
         private void QuitMenuNoButtonFunc()
         {
             DeActivateQuitConfimationMenuCanvas();
+        }
+
+        #endregion
+
+        #region ReStart Confimation Menu Canvas Func
+
+        public void ActivateReStartConfimationMenuCanvas()
+        {
+            restartConfirmationCanvasClass.restartConfirmationCanvasGroup.alpha = 1;
+            restartConfirmationCanvasClass.restartConfirmationCanvasGroup.interactable = true;
+            restartConfirmationCanvasClass.restartConfirmationCanvasGroup.blocksRaycasts = true;
+            restartConfirmationCanvasClass.restartConfirmationButtonsParentTransform.DOScale(Vector3.one, 0.7f);
+        }
+
+        public void DeActivateReStartConfimationMenuCanvas(Action action = null)
+        {
+            restartConfirmationCanvasClass.restartConfirmationCanvasGroup.interactable = false;
+            restartConfirmationCanvasClass.restartConfirmationCanvasGroup.blocksRaycasts = false;
+            restartConfirmationCanvasClass.restartConfirmationButtonsParentTransform.DOScale(Vector3.zero, 0.2f).OnComplete(() =>
+            {
+                restartConfirmationCanvasClass.restartConfirmationCanvasGroup.alpha = 0;
+                if (action != null) action?.Invoke();
+            });
+        }
+
+        private void InitRestartConfimationMenuButtonsFunc()
+        {
+            restartConfirmationCanvasClass.yesButton.onClick.AddListener(() => { RestartMenuYesButtonFunc(); });
+            restartConfirmationCanvasClass.noButton.onClick.AddListener(() => { RestartMenuNoButtonFunc(); });
+        }
+
+        private void RestartMenuYesButtonFunc()
+        {
+            DeActivateReStartConfimationMenuCanvas(() => { GameManager.Instance.StartCountDown(); });
+        }
+
+        private void RestartMenuNoButtonFunc()
+        {
+            DeActivateReStartConfimationMenuCanvas(() =>
+            {
+                switch (currentUIState)
+                {
+                    case UI_State.PauseMenu:
+                        ActivatePauseMenuCanvas();
+                        break;
+                    case UI_State.ResultMenu:
+                        ActivateResultMenuCanvas(tempWinStatus);
+                        break;
+                }
+            });
         }
 
         #endregion

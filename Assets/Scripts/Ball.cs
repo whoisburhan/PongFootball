@@ -52,7 +52,8 @@ namespace GS.PongFootball
             if (col.gameObject.name == "RightSidePlayer")
             {
                 var _animator = col.gameObject.GetComponent<Animator>();
-                _animator.Play("RightSidePlayerHit");
+                //_animator.Play("RightSidePlayerHit");
+                _animator.Play("USAHit");
             }
         }
 

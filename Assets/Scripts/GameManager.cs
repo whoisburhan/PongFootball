@@ -74,6 +74,7 @@ namespace GS.PongFootball
             {
                 StartCountDown();
             }
+
         }
 
         public void StartCountDown()
@@ -84,6 +85,7 @@ namespace GS.PongFootball
             countDownObject.SetActive(true);
             SetPlayerScore(0);
             SetComputerScore(0);
+            UIManager.Instance.ActivatePauseButtonUI();
             UIManager.Instance.DeActivatePauseButtonInterectable();
         }
         public void NewGame()

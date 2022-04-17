@@ -4,7 +4,7 @@ namespace GS.PongFootball
 {
     public class PlayerPaddle : Paddle
     {
-        public Vector2 direction { get; private set; }
+        private Vector2 direction;
 
         private Vector2 fingerUpPosition, fingerDownPosition;
         private float minimumDistanceForSwipe = 1f;
@@ -43,11 +43,17 @@ namespace GS.PongFootball
                             fingerDownPosition = touch.position;
                         }
 
-                        if (touch.phase == TouchPhase.Ended)
-                        {
-                            fingerDownPosition = touch.position;
-                            DetectSwipe();
-                        }
+                        // if (touch.phase == TouchPhase.Ended)
+                        // {
+                        //     fingerDownPosition = touch.position;
+                        //     DetectSwipe();
+                        // }
+
+                        fingerUpPosition = fingerDownPosition;
+                        fingerDownPosition = touch.position;
+
+                        direction = fingerDownPosition.y - fingerUpPosition.y == 0 ? Vector2.zero : fingerDownPosition.y - fingerUpPosition.y > 0 ? Vector2.up : Vector2.down;
+
                     }
                 }
             }
