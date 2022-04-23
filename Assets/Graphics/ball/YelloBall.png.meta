@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: e7585d50b1d554947aa7925eca8cc6cc
+guid: 5c875b4e47b7d724da12ceb3a78a518f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1124905952859558530
-    second: btn_continue_0
+      213: 1346449725342309708
+    second: YelloBall_0
   - first:
-      213: -8984043271593793742
-    second: btn_continue_1
+      213: -2217227985536924489
+    second: YelloBall_1
+  - first:
+      213: -3434881183823395610
+    second: YelloBall_2
+  - first:
+      213: -2807568841102629648
+    second: YelloBall_3
+  - first:
+      213: 8224251107026523957
+    second: YelloBall_4
+  - first:
+      213: -1766758510533502019
+    second: YelloBall_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,43 +133,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: btn_continue_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 114
-        width: 550
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 57, y: 26, z: 64, w: 20}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7d6512fef78360f0800000000000000
-      internalID: -1124905952859558530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: btn_continue_1
+      name: YelloBall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 550
-        height: 114
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237e9e57e34425380800000000000000
-      internalID: -8984043271593793742
+      spriteID: c4d53f234ec8fa210800000000000000
+      internalID: 1346449725342309708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: YelloBall_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b4440005e2da31e0800000000000000
+      internalID: -2217227985536924489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: YelloBall_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4888813c9d450d0800000000000000
+      internalID: -3434881183823395610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: YelloBall_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f46f9f93038909d0800000000000000
+      internalID: -2807568841102629648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: YelloBall_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 537dde1dec8622270800000000000000
+      internalID: 8224251107026523957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: YelloBall_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbb90cfce763b77e0800000000000000
+      internalID: -1766758510533502019
       vertices: []
       indices: 
       edges: []

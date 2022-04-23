@@ -1,18 +1,44 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace GS.PongFootball
 {
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D),typeof(SpriteRenderer),typeof(Animator))]
     public class Ball : MonoBehaviour
     {
+        [SerializeField] BallAnimations ballAnimations;
         public float speed = 200f;
         [SerializeField] private GameObject ballHitEffect;
 
         public new Rigidbody2D rigidbody { get; private set; }
 
+        [SerializeField] private SpriteRenderer sr;
+        [SerializeField] private Animator animator;
+
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody2D>();
+
+            if(sr == null)  sr = GetComponent<SpriteRenderer>();
+            if(animator == null) animator = GetComponent<Animator>();
+
+            
+        }
+
+        private void OnEnable()
+        {
+            SetBallAnimation(GameData.Instance.CurrentlySelectedBallIndex);
+        }
+        private void Update()
+        {
+            if(rigidbody.velocity.x < 0 && !sr.flipX)
+            {
+                sr.flipX = true;
+            }
+            else if(rigidbody.velocity.x > 0 && sr.flipX)
+            {
+                sr.flipX = false;
+            }
         }
 
         public void ResetPosition()
@@ -47,14 +73,21 @@ namespace GS.PongFootball
             if (col.gameObject.name == "LeftSidePlayer")
             {
                 var _animator = col.gameObject.GetComponent<Animator>();
-                _animator.Play("LeftSidePlayerHit");
+                // _animator.Play("LeftSidePlayerHit");
+                _animator.Play("BRAHit");
             }
             if (col.gameObject.name == "RightSidePlayer")
             {
                 var _animator = col.gameObject.GetComponent<Animator>();
                 //_animator.Play("RightSidePlayerHit");
                 _animator.Play("USAHit");
+                
             }
+        }
+
+        public void SetBallAnimation(int index)
+        {
+            animator.Play(ballAnimations.AnimationList[index]);
         }
 
     }

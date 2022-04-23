@@ -4,43 +4,44 @@ using UnityEngine;
 
 namespace GS.PongFootball
 {
+    public enum FieldPattern
+    {
+        Pattern_1 = 0, Pattern_2, Pattern_3
+    }
+
     [RequireComponent(typeof(SpriteRenderer))]
     public class GroundChanger : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer sr;
+        public static GroundChanger Instance {get;private set;}
 
-        [Header("Field Sprites")]
-        [SerializeField] private List<Sprite> fields;
+        [SerializeField] private SpriteRenderer groundSr;
+        [SerializeField] private SpriteRenderer sandLayerSr;
+        [SerializeField] private SpriteRenderer fieldPattenSr;
+
+        [Header("Field Pattern Sprites")]
+        [SerializeField] public List<Sprite> FieldPatterns;
 
         private void Awake()
         {
-            if(sr == null)  sr = GetComponent<SpriteRenderer>();
-        }
-        public void SetGround(int fieldIndex = 0)
-        {
-            if (fields.Count > 0)
+            if (Instance == null)
             {
-                if (fieldIndex >= 0 && fieldIndex < fields.Count)
-                {
-                    sr.sprite = fields[fieldIndex];
-                }
-                else
-                {
-                    Debug.LogError("Index Out of bounds");
-                }
+                Instance = this;
+                DontDestroyOnLoad(this.gameObject);
             }
             else
             {
-                Debug.LogError("Field is empty");
+                Destroy(this);
             }
         }
 
-        public void SetGroundRandomly()
+        public void SetField(FieldPattern _fieldPattern, Color groundColor, Color sandColor, Color fieldPatternColor)
         {
-            if (fields.Count > 0)
-            {
-                sr.sprite = fields[UnityEngine.Random.Range(0,fields.Count)];
-            }
+            fieldPattenSr.sprite = FieldPatterns[(int)_fieldPattern];
+            groundSr.color = groundColor;
+            sandLayerSr.color = sandColor;
+            fieldPattenSr.color = fieldPatternColor;
         }
+
+       
     }
 }

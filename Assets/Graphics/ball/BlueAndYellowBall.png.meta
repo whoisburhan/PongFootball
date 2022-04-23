@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: e7585d50b1d554947aa7925eca8cc6cc
+guid: 7e81c86fdc3e2b94b9a91fa74e7776d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1124905952859558530
-    second: btn_continue_0
+      213: 755896572810407424
+    second: BlueAndYellowBall_0
   - first:
-      213: -8984043271593793742
-    second: btn_continue_1
+      213: -7852569190557039711
+    second: BlueAndYellowBall_1
+  - first:
+      213: -6959594817764718489
+    second: BlueAndYellowBall_2
+  - first:
+      213: 3635474468571477327
+    second: BlueAndYellowBall_3
+  - first:
+      213: -7132635027156173423
+    second: BlueAndYellowBall_4
+  - first:
+      213: -9070392094039605125
+    second: BlueAndYellowBall_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,43 +133,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: btn_continue_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 114
-        width: 550
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 57, y: 26, z: 64, w: 20}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7d6512fef78360f0800000000000000
-      internalID: -1124905952859558530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: btn_continue_1
+      name: BlueAndYellowBall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 550
-        height: 114
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237e9e57e34425380800000000000000
-      internalID: -8984043271593793742
+      spriteID: 00eac459deb7d7a00800000000000000
+      internalID: 755896572810407424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAndYellowBall_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a3cba60de1160390800000000000000
+      internalID: -7852569190557039711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAndYellowBall_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7680c72036d8a6f90800000000000000
+      internalID: -6959594817764718489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAndYellowBall_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f45743184ccc37230800000000000000
+      internalID: 3635474468571477327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAndYellowBall_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19df8ddab3ac30d90800000000000000
+      internalID: -7132635027156173423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAndYellowBall_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b70024d827e7f1280800000000000000
+      internalID: -9070392094039605125
       vertices: []
       indices: 
       edges: []

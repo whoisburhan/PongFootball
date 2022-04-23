@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: e7585d50b1d554947aa7925eca8cc6cc
+guid: 081587f29d5960240b331e8059c4a66d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1124905952859558530
-    second: btn_continue_0
+      213: 3802565559548780263
+    second: RedAndWhiteBall_0
   - first:
-      213: -8984043271593793742
-    second: btn_continue_1
+      213: -8531377971146772904
+    second: RedAndWhiteBall_1
+  - first:
+      213: 4572432746932331875
+    second: RedAndWhiteBall_2
+  - first:
+      213: -8029293547253587545
+    second: RedAndWhiteBall_3
+  - first:
+      213: -422808133884172795
+    second: RedAndWhiteBall_4
+  - first:
+      213: -3072133609018072631
+    second: RedAndWhiteBall_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,43 +133,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: btn_continue_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 114
-        width: 550
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 57, y: 26, z: 64, w: 20}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7d6512fef78360f0800000000000000
-      internalID: -1124905952859558530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: btn_continue_1
+      name: RedAndWhiteBall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 550
-        height: 114
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237e9e57e34425380800000000000000
-      internalID: -8984043271593793742
+      spriteID: 7ee1a04ca3d65c430800000000000000
+      internalID: 3802565559548780263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RedAndWhiteBall_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e2439bfe47a9980800000000000000
+      internalID: -8531377971146772904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RedAndWhiteBall_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 365e3488b5b847f30800000000000000
+      internalID: 4572432746932331875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RedAndWhiteBall_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a12d9e4f08329090800000000000000
+      internalID: -8029293547253587545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RedAndWhiteBall_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50620bb0e32e12af0800000000000000
+      internalID: -422808133884172795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RedAndWhiteBall_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c160fb62c69d55d0800000000000000
+      internalID: -3072133609018072631
       vertices: []
       indices: 
       edges: []

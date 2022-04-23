@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: e7585d50b1d554947aa7925eca8cc6cc
+guid: 5648a5538b82bd344a18fed7d4b58e31
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1124905952859558530
-    second: btn_continue_0
+      213: -7824725670618517029
+    second: BlackAndWhiteBall_0
   - first:
-      213: -8984043271593793742
-    second: btn_continue_1
+      213: -6720354011106483497
+    second: BlackAndWhiteBall_1
+  - first:
+      213: -3905881141834855729
+    second: BlackAndWhiteBall_2
+  - first:
+      213: 9010996506519832501
+    second: BlackAndWhiteBall_3
+  - first:
+      213: -1032172703916966098
+    second: BlackAndWhiteBall_4
+  - first:
+      213: 3666148520990843383
+    second: BlackAndWhiteBall_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,43 +133,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: btn_continue_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 114
-        width: 550
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 57, y: 26, z: 64, w: 20}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7d6512fef78360f0800000000000000
-      internalID: -1124905952859558530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: btn_continue_1
+      name: BlackAndWhiteBall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 550
-        height: 114
+        width: 48
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237e9e57e34425380800000000000000
-      internalID: -8984043271593793742
+      spriteID: bd137e1b57df86390800000000000000
+      internalID: -7824725670618517029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackAndWhiteBall_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2602302a18cb2a0800000000000000
+      internalID: -6720354011106483497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackAndWhiteBall_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca4906bbc58bc9c0800000000000000
+      internalID: -3905881141834855729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackAndWhiteBall_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b78663949d7d0d70800000000000000
+      internalID: 9010996506519832501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackAndWhiteBall_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2fbc2cf46cfca1f0800000000000000
+      internalID: -1032172703916966098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackAndWhiteBall_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f1ab7fd7a6c0e230800000000000000
+      internalID: 3666148520990843383
       vertices: []
       indices: 
       edges: []

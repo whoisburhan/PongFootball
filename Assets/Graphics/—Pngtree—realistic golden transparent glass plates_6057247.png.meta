@@ -1,13 +1,22 @@
 fileFormatVersion: 2
-guid: e7585d50b1d554947aa7925eca8cc6cc
+guid: 6a1452dff0701e24d9fb42a03c941939
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1124905952859558530
-    second: btn_continue_0
+      213: -6091802239018683901
+    second: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_0"
   - first:
-      213: -8984043271593793742
-    second: btn_continue_1
+      213: 6170016159017446920
+    second: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_1"
+  - first:
+      213: 1274752003472866780
+    second: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_2"
+  - first:
+      213: 3093726865141384642
+    second: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_3"
+  - first:
+      213: 3819911526932170290
+    second: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_4"
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,43 +130,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: btn_continue_0
+      name: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 114
-        width: 550
-        height: 114
+        x: 440
+        y: 2988
+        width: 2460
+        height: 1456
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 57, y: 26, z: 64, w: 20}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7d6512fef78360f0800000000000000
-      internalID: -1124905952859558530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: btn_continue_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 550
-        height: 114
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237e9e57e34425380800000000000000
-      internalID: -8984043271593793742
+      spriteID: 302bc5da322957ba0800000000000000
+      internalID: -6091802239018683901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_1"
+      rect:
+        serializedVersion: 2
+        x: 3144
+        y: 3007
+        width: 1426
+        height: 1426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ea7a8a10d40a550800000000000000
+      internalID: 6170016159017446920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_2"
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 2206
+        width: 2460
+        height: 656
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cddb7b77134d0b110800000000000000
+      internalID: 1274752003472866780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_3"
+      rect:
+        serializedVersion: 2
+        x: 3115
+        y: 381
+        width: 1485
+        height: 2480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c5c5dc41302fea20800000000000000
+      internalID: 3093726865141384642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_4"
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 380
+        width: 2441
+        height: 1681
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23646348b4d030530800000000000000
+      internalID: 3819911526932170290
       vertices: []
       indices: 
       edges: []

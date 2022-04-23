@@ -9,7 +9,7 @@ namespace GS.PongFootball
 {
     public enum UI_State
     {
-        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu
+        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu
     }
 
     [Serializable]
@@ -114,6 +114,15 @@ namespace GS.PongFootball
         public Button restartButton, optionsButton, rateButton;
     }
 
+    [Serializable]
+    class ShopCanvasClass
+    {
+        public CanvasGroup shopCanvasGroup;
+
+        public Transform shopCanvasButtonsParentTransform;
+
+        public Button ConfirmButton;
+    }
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
@@ -126,6 +135,8 @@ namespace GS.PongFootball
         [SerializeField] private RestartConfirmationCanvasClass restartConfirmationCanvasClass;
         [SerializeField] private QuitConfirmationCanvasClass quitConfirmationCanvasClass;
         [SerializeField] private ResultCanvasClass resultCanvasClass;
+
+        [SerializeField] private ShopCanvasClass shopCanvasClass;
 
         [Header("Buttons")]
         [SerializeField] private Button pasueButton;
@@ -159,6 +170,7 @@ namespace GS.PongFootball
             InitOptionsMenuButtonsFunc();
             InitQuitMenuButtonsFunc();
             InitRestartConfimationMenuButtonsFunc();
+            InitShopMenuButtonsFunc();
         }
 
         private void Update()
@@ -207,7 +219,7 @@ namespace GS.PongFootball
 
             startMenuCanvasClass.shareButton.onClick.AddListener(() => { ShareButtonFunc(); });
 
-            startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { MoreGamesButtonFunc(); });
+            startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); });
         }
 
         private void PlayButtonFunc()
@@ -230,9 +242,12 @@ namespace GS.PongFootball
 
         }
 
-        private void MoreGamesButtonFunc()
+        private void ShopButtonFunc()
         {
-
+            DeActivateStartMenuCanvas(()=>
+            {
+                ActivateShopMenuCanvas();
+            });
         }
         #endregion
 
@@ -304,7 +319,7 @@ namespace GS.PongFootball
                 Home();
             });
 
-            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc();});
+            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc(); });
 
             pauseMenuCanvasClass.optionsButton.onClick.AddListener(() => { PauseMenuOptionsButtonFunc(); });
 
@@ -315,10 +330,10 @@ namespace GS.PongFootball
         {
             ActivatePauseMenuCanvas();
         }
-        
+
         private void PauseMenuRestartButtonFunc()
         {
-            DeActivatePauseMenuCanvas(false,() => { ActivateReStartConfimationMenuCanvas(); });
+            DeActivatePauseMenuCanvas(false, () => { ActivateReStartConfimationMenuCanvas(); });
         }
 
         private void PauseMenuOptionsButtonFunc()
@@ -672,6 +687,39 @@ namespace GS.PongFootball
             });
         }
 
+        #endregion
+
+        #region  Shop Menu Canvas Func
+
+        public void ActivateShopMenuCanvas()
+        {
+            SetUIState(UI_State.ShopMenu);
+            shopCanvasClass.shopCanvasGroup.alpha = 1;
+            shopCanvasClass.shopCanvasGroup.interactable = true;
+            shopCanvasClass.shopCanvasGroup.blocksRaycasts = true;
+            shopCanvasClass.shopCanvasButtonsParentTransform.DOScale(Vector3.one, 0.7f);
+        }
+
+        public void DeActivateShopMenuCanvas(Action action = null)
+        {
+            shopCanvasClass.shopCanvasGroup.interactable = false;
+            shopCanvasClass.shopCanvasGroup.blocksRaycasts = false;
+            shopCanvasClass.shopCanvasButtonsParentTransform.DOScale(Vector3.zero, 0.2f).OnComplete(() =>
+            {
+                shopCanvasClass.shopCanvasGroup.alpha = 0;
+                if (action != null) action?.Invoke();
+            });
+        }
+
+        private void InitShopMenuButtonsFunc()
+        {
+            shopCanvasClass.ConfirmButton.onClick.AddListener(() => { ShopConfimButtonFunc(); });
+        }
+
+        private void ShopConfimButtonFunc()
+        {
+            DeActivateShopMenuCanvas(() => { ActivateStartMenuCanvas(); });
+        }
         #endregion
 
         #region Common Functions
