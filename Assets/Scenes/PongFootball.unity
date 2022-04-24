@@ -1326,6 +1326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 394122676}
   price: 0
@@ -2920,6 +2921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 271012233}
   price: 0
@@ -4079,6 +4081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 2047804043}
   price: 0
@@ -5517,6 +5520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 2059555520}
   price: 0
@@ -5844,6 +5848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 631592234}
   price: 0
@@ -6316,6 +6321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 1168391328}
   price: 0
@@ -8284,6 +8290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 906537567}
   price: 0
@@ -8518,6 +8525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 913434542}
   price: 0
@@ -11064,6 +11072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 2554328}
   price: 0
@@ -11292,6 +11301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 1451738341}
   price: 0
@@ -11688,6 +11698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 930186665}
   price: 0
@@ -12563,6 +12574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 763986507}
   price: 0
@@ -14362,7 +14374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -21136.582}
+  m_AnchoredPosition: {x: 0, y: -48254.832}
   m_SizeDelta: {x: 897.46, y: 909.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632041017
@@ -14687,6 +14699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 21787610}
   price: 0
@@ -16125,6 +16138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85885ffd58336a343a831c57e76294f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIndex: 0
   shopItemButtonColor: {fileID: 11400000, guid: 697b2eaa868b8e7479dd9127f5c4373e, type: 2}
   priceObj: {fileID: 889831966}
   price: 0
@@ -16280,7 +16294,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: More Games
+  m_Text: Shop
 --- !u!222 &1951553937
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16631,7 +16645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -15972.185}
+  m_AnchoredPosition: {x: 0, y: -43090.293}
   m_SizeDelta: {x: 897.46, y: 1129.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986100529
