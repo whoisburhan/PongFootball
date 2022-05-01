@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -316,6 +317,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      goal_posts_lights_2frames_3: -1295281724887084931
+      goal_posts_lights_2frames_6: -7660988971043507971
+      goal_posts_lights_2frames_1: -1289414880554388317
+      goal_posts_lights_2frames_2: 4144378183869879187
+      goal_posts_lights_2frames_4: 1159003239287787103
+      goal_posts_lights_2frames_5: -1247446958225384535
+      goal_posts_lights_2frames_0: -7932907917817043287
+      goal_posts_lights_2frames_7: 7396899971565125058
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

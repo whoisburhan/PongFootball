@@ -43,6 +43,6 @@ namespace GS.PongFootball
 
     public enum AudioName
     {
-        FREE_KICK = 0, GOAL_SOUND, BALL_HIT
+        FREE_KICK = 0, GOAL_SOUND, BALL_HIT, COIN_SOUND
     }
 }

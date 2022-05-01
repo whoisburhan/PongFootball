@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -268,6 +269,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      BlueAndYellowBall_5: -9070392094039605125
+      BlueAndYellowBall_1: -7852569190557039711
+      BlueAndYellowBall_4: -7132635027156173423
+      BlueAndYellowBall_0: 755896572810407424
+      BlueAndYellowBall_3: 3635474468571477327
+      BlueAndYellowBall_2: -6959594817764718489
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

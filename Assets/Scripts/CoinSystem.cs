@@ -8,8 +8,6 @@ namespace GS.PongFootball
     {
         public static CoinSystem Instance { get; private set; }
 
-        private int coinAmount = 5000;
-
         private void Awake()
         {
             if (Instance == null)
@@ -25,22 +23,28 @@ namespace GS.PongFootball
 
         public int GetCoin()
         {
-            return coinAmount;
+            Debug.Log("COIN : " + GameData.Instance.State.TotalCoin);
+            return GameData.Instance.State.TotalCoin;
         }
 
         public void AddCoin(int _coinAmount)
         {
-            coinAmount += _coinAmount;
+            GameData.Instance.State.TotalCoin += _coinAmount;
+            GameData.Instance.Save();
+            UIManager.Instance.UpdateCoinInUI();
         }
 
         public void DeductCoin(int _coinAmount)
         {
-            coinAmount -= _coinAmount;
+            GameData.Instance.State.TotalCoin -= _coinAmount;
 
-            if (coinAmount < 0)
+            if (GameData.Instance.State.TotalCoin < 0)
             {
-                coinAmount = 0;
+                GameData.Instance.State.TotalCoin = 0;
             }
+
+            GameData.Instance.Save();
+            UIManager.Instance.UpdateCoinInUI();
         }
 
     }

@@ -11,7 +11,13 @@ namespace GS.PongFootball
     {
         public int[] Balls = new int[10] { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         public int[] Grounds = new int[7] { 2, 0, 0, 0, 0, 0, 0 };
+
+        public int[] Puds = new int[5] { 1, 1, 2, 0, 0 };
         public int HighScore { get; set; }
+
+        public int SelectedLanguage { get; set; }
+
+        public int TotalCoin { get; set; }
 
     }
 
@@ -22,7 +28,7 @@ namespace GS.PongFootball
 
         public int CurrentlySelectedBallIndex = 0;
         public int CurrentlySelectedFieldIndex = 0;
-        public int CurrentlySelectedPudIndex = 0;
+        public int CurrentlySelectedPudIndex = 2;
 
         [Header("Logic")]
 
@@ -71,7 +77,7 @@ namespace GS.PongFootball
         public void Load()
         {
             // Open a physical file, on your disk to hold the save
-            
+
 
             try
             {
@@ -84,6 +90,8 @@ namespace GS.PongFootball
             catch
             {
                 Debug.Log("No file found, creating new entry...");
+                state.TotalCoin = 2500;
+                UIManager.Instance.FirstTimeGameOn = true;
                 Save();
             }
         }
@@ -92,6 +100,7 @@ namespace GS.PongFootball
         {
             CurrentlySelectedBallIndex = GetSelectedItemIndex(State.Balls);
             CurrentlySelectedFieldIndex = GetSelectedItemIndex(state.Grounds);
+            CurrentlySelectedPudIndex = GetSelectedItemIndex(state.Puds);
         }
 
         private int GetSelectedItemIndex(int[] itemList)

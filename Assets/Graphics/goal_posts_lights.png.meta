@@ -84,6 +84,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -604,6 +605,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      goal_posts_lights_10: -4107619546127281531
+      goal_posts_lights_18: -5811162443856635660
+      goal_posts_lights_17: -8746360178098940275
+      goal_posts_lights_16: 4901962888942836399
+      goal_posts_lights_12: -7898524337491205759
+      goal_posts_lights_0: 8105907175338407192
+      goal_posts_lights_9: -7119965112690858
+      goal_posts_lights_1: 7590810558074594234
+      goal_posts_lights_13: -3704006746548277364
+      goal_posts_lights_2: 7581962376066109030
+      goal_posts_lights_4: -2463477932787481800
+      goal_posts_lights_15: -7859247675345923330
+      goal_posts_lights_3: -4517109916910758901
+      goal_posts_lights_8: 2093080714977422546
+      goal_posts_lights_5: -1172484009041687400
+      goal_posts_lights_11: 8598893851336263614
+      goal_posts_lights_14: 6666592185085106765
+      goal_posts_lights_19: 1195711612821818487
+      goal_posts_lights_6: -1811844910647271280
+      goal_posts_lights_7: 1622652036349908857
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

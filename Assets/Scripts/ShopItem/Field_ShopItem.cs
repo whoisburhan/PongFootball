@@ -36,24 +36,6 @@ namespace GS.PongFootball
         }
 
 
-        protected override void BuyItem()
-        {
-            base.BuyItem();
-
-            if (CoinSystem.Instance.GetCoin() >= price)
-            {
-                // After Buying
-
-                //
-
-                EquipeItem();
-            }
-            else
-            {
-                Debug.Log("FOINNI");
-            }
-        }
-
         protected override void EquipedItem()
         {
             base.EquipedItem();

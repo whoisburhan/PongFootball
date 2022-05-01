@@ -36,6 +36,12 @@ namespace GS.PongFootball
 
         [HideInInspector] public Vector2 tempVelocityStore = Vector2.zero;
 
+        [Header("Puds")]
+        [SerializeField] private SpriteRenderer RightSidePudOrPudOne, LeftSidePudOrPudTwo;
+        [SerializeField] public PudContainer pudContainer;
+        [HideInInspector] public string CurrentlySelectedPudOneHitAnimation = "USAHit";
+        [HideInInspector] public string CurrentlySelectedPudTwoHitAnimation = "BRAHit";
+
         public int TargetGoal = 9;
 
         [Header("Goal Score Sptries")]
@@ -65,6 +71,7 @@ namespace GS.PongFootball
             IsSoundModeOn = true;
             IsPlay = false;
             ball.gameObject.SetActive(false);
+            UpdatePlayerPud(GameData.Instance.CurrentlySelectedPudIndex);
             // StartCountDown();
         }
 
@@ -119,7 +126,7 @@ namespace GS.PongFootball
             else
             {
                 IsPlay = false;
-                UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore);
+                UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore, true);
                 Debug.Log("GAME OVER");
             }
 
@@ -180,10 +187,42 @@ namespace GS.PongFootball
             }
         }
 
+        #region Pud Selection
+
+        public void UpdatePlayerPud(int pudIndex)
+        {
+            Debug.Log(pudIndex);
+            SetPud(pudContainer.container[pudIndex].Pud,pudContainer.container[pudIndex].PudAnimation,true);
+        }
+        public void SetPud(Sprite pudSprite, string pudAnimationString, bool isPudOne)
+        {
+            Debug.Log(pudAnimationString);
+            if(isPudOne)
+            {
+                CurrentlySelectedPudOneHitAnimation = pudAnimationString;
+                RightSidePudOrPudOne.gameObject.SetActive(false);
+                RightSidePudOrPudOne.sprite = pudSprite;
+                RightSidePudOrPudOne.gameObject.SetActive(true);
+            }
+            else
+            {
+                CurrentlySelectedPudTwoHitAnimation = pudAnimationString;
+                LeftSidePudOrPudTwo.gameObject.SetActive(false);
+                LeftSidePudOrPudTwo.sprite = pudSprite;
+                LeftSidePudOrPudTwo.gameObject.SetActive(true);
+            }
+        }
+
+        #endregion
+
+
         IEnumerator Delay(Action action, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
             action?.Invoke();
         }
+    
+    
+    
     }
 }

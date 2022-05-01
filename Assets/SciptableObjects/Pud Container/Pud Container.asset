@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fabf726343b691459d9ee9ea71ad5c2, type: 3}
+  m_Name: Pud Container
+  m_EditorClassIdentifier: 
+  container:
+  - Pud: {fileID: -4270768036292313862, guid: 88a692e4c70814e4aafe0facc831cbff, type: 3}
+    PudAnimation: RedHit
+    Price: 0
+  - Pud: {fileID: 94674668, guid: 7438f6dee0ae476498de5fde8822e1dc, type: 3}
+    PudAnimation: GreHit
+    Price: 0
+  - Pud: {fileID: -7853463854930767177, guid: 23ae5ce981c8479409bd9c0c6f17c6f9, type: 3}
+    PudAnimation: USAHit
+    Price: 0
+  - Pud: {fileID: -6730494362702700308, guid: 64d963d33bfad004e810a56c7dbf7754, type: 3}
+    PudAnimation: GRBHit
+    Price: 300
+  - Pud: {fileID: 4804968741856182828, guid: 8c97eb9e213cc4343b75274a2a531385, type: 3}
+    PudAnimation: BRAHit
+    Price: 200

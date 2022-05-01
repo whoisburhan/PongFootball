@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -268,6 +269,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      BlackAndWhiteBall_5: 3666148520990843383
+      BlackAndWhiteBall_2: -3905881141834855729
+      BlackAndWhiteBall_3: 9010996506519832501
+      BlackAndWhiteBall_1: -6720354011106483497
+      BlackAndWhiteBall_0: -7824725670618517029
+      BlackAndWhiteBall_4: -1032172703916966098
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

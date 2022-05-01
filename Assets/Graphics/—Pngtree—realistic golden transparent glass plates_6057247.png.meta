@@ -39,6 +39,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -244,6 +245,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_0": -6091802239018683901
+      "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_3": 3093726865141384642
+      "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_2": 1274752003472866780
+      "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_1": 6170016159017446920
+      "\u2014Pngtree\u2014realistic golden transparent glass plates_6057247_4": 3819911526932170290
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

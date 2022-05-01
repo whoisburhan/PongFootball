@@ -17,15 +17,15 @@ namespace GS.PongFootball
         [SerializeField] ShopItemButtonColor shopItemButtonColor;
         [SerializeField] protected GameObject priceObj;
 
-        [SerializeField] protected int price;
-        [SerializeField] protected Text priceText;
+        [SerializeField] public int price;
+        [SerializeField] public Text priceText;
         [SerializeField] protected Button shopItemButton;
         [SerializeField] protected Text shopItemButtonText;
-        [SerializeField] protected Image shopItemImg;
+        [SerializeField] public Image shopItemImg;
 
         public virtual void Start()
         {
-            shopItemButton.onClick.AddListener(()=>
+            shopItemButton.onClick.AddListener(() =>
             {
                 ShopItemButtonFunc();
             });
@@ -38,7 +38,7 @@ namespace GS.PongFootball
         }
         private void ShopItemButtonFunc()
         {
-            switch(shopItemState)
+            switch (shopItemState)
             {
                 case ShopItemState.BUY:
                     BuyItem();
@@ -76,11 +76,28 @@ namespace GS.PongFootball
             }
         }
 
-        protected virtual void BuyItem() { Debug.Log("BUY ITEM Function Execute"); }
+        protected virtual void BuyItem()
+        {
+            if(CoinSystem.Instance.GetCoin()>= price)
+            {
+                // After Buying
+                CoinSystem.Instance.DeductCoin(price);
+                //
+
+                EquipeItem();
+               // UpdateShopItemState(ShopItemState.EQUIPE);
+            }
+            else
+            {
+                Debug.Log("FOINNI");
+            }
+
+            Debug.Log("BUY ITEM Function Executed");
+        }
 
         protected virtual void EquipeItem() { Debug.Log("EQUIP ITEM Function Execute"); }
 
-        protected virtual void EquipedItem() {  Debug.Log("EQUIPED ITEM Function Execute");}
+        protected virtual void EquipedItem() { Debug.Log("EQUIPED ITEM Function Execute"); }
 
         public virtual void ActivateItem()
         {

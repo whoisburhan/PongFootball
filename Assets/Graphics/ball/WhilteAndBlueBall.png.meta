@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -268,6 +269,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      WhilteAndBlueBall_5: 413718241883795721
+      WhilteAndBlueBall_1: -5387410745763166299
+      WhilteAndBlueBall_0: -2366177707708818338
+      WhilteAndBlueBall_3: 4961612869886606650
+      WhilteAndBlueBall_4: 1535570871632653028
+      WhilteAndBlueBall_2: 2918781626954032656
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

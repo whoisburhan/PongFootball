@@ -24,6 +24,8 @@ namespace GS.PongFootball
         [Header("Pud Shop")]
         [SerializeField] private GameObject pudShopPanel;
         [SerializeField] private Button selectPudShopButton;
+        [SerializeField] private List<Pud_ShopItem> shopItemsPuds;
+        [HideInInspector] public Pud_ShopItem CurrentySelectedShopItemPud;
 
         private void Awake()
         {
@@ -39,6 +41,7 @@ namespace GS.PongFootball
 
             CurrentlySelectedShopItemBall = shopItemsBalls[0];
             CurrentySelectedShopItemField = shopItemsFields[0];
+            CurrentySelectedShopItemPud = shopItemsPuds[2];
         }
         private void Start()
         {
@@ -96,11 +99,21 @@ namespace GS.PongFootball
             for (int i = 0; i < shopItemsBalls.Count; i++)
             {
                 shopItemsBalls[i].SetItemIndex(i);
+                shopItemsBalls[i].price = 300;
+                shopItemsBalls[i].priceText.text = shopItemsBalls[i].price.ToString();
             }
 
             for (int i = 0; i < shopItemsFields.Count; i++)
             {
                 shopItemsFields[i].SetItemIndex(i);
+            }
+
+            for (int i = 0; i < shopItemsPuds.Count; i++)
+            {
+                shopItemsPuds[i].SetItemIndex(i);
+                shopItemsPuds[i].price = GameManager.Instance.pudContainer.container[i].Price;
+                shopItemsPuds[i].priceText.text = shopItemsPuds[i].price.ToString();
+                shopItemsPuds[i].shopItemImg.sprite = GameManager.Instance.pudContainer.container[i].Pud;
             }
         }
         public void Reset()
@@ -122,6 +135,7 @@ namespace GS.PongFootball
         {
             UpdateBallDataOnLoadExecute(GameData.Instance.State.Balls);
             UpdateFieldDataOnLoadExecute(GameData.Instance.State.Grounds);
+            UpdatePudDataOnLoadExecute(GameData.Instance.State.Puds);
         }
 
         private void UpdateBallDataOnLoadExecute(int[] _data)
@@ -159,6 +173,26 @@ namespace GS.PongFootball
                     case 2:
                         shopItemsFields[i].UpdateShopItemState(ShopItemState.EQUIPED);
                         shopItemsFields[i].ActivateItem();
+                        break;
+                }
+            }
+        }
+
+        private void UpdatePudDataOnLoadExecute(int[] _data)
+        {
+            for (int i = 0; i < _data.Length; i++)
+            {
+                switch (_data[i])
+                {
+                    case 0:
+                        shopItemsPuds[i].UpdateShopItemState(ShopItemState.BUY);
+                        break;
+                    case 1:
+                        shopItemsPuds[i].UpdateShopItemState(ShopItemState.EQUIPE);
+                        break;
+                    case 2:
+                        shopItemsPuds[i].UpdateShopItemState(ShopItemState.EQUIPED);
+                        shopItemsPuds[i].ActivateItem();
                         break;
                 }
             }

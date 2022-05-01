@@ -9,7 +9,7 @@ namespace GS.PongFootball
 {
     public enum UI_State
     {
-        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu
+        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu
     }
 
     [Serializable]
@@ -26,8 +26,51 @@ namespace GS.PongFootball
 
         [Header("Buttons")]
         public Button playButton;
-        public Button rateButton, optionsButton, shareButton, moreGamesButton;
+        public Button rateButton, optionsButton, shareButton, moreGamesButton, selectLanguageButton;
 
+        [Header("Multiplayers")]
+        public Button localButton;
+        public Button globalButton;
+        public Transform localPos, globalPos;
+
+        public void MultiplayerButtonFunc()
+        {
+            if (localButton.interactable) DeActivateMultiplayerOptions();
+            else ActivateMultiplayerOptions();
+        }
+        private void ActivateMultiplayerOptions()
+        {
+            shareButton.interactable = false;
+            localButton.transform.DOMove(localPos.position, 0.5f);
+            localButton.transform.DOScale(new Vector3(0.8f, 0.8f), 0.5f).OnComplete(() =>
+            {
+                localButton.interactable = true;
+                shareButton.interactable = true;
+            });
+
+            globalButton.transform.DOMove(globalPos.position, 0.5f);
+            globalButton.transform.DOScale(new Vector3(0.8f, 0.8f), 0.5f).OnComplete(() =>
+            {
+                globalButton.interactable = true;
+            });
+        }
+
+        private void DeActivateMultiplayerOptions()
+        {
+            shareButton.interactable = false;
+            localButton.transform.DOMove(shareButton.transform.position, 0.5f);
+            localButton.transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                localButton.interactable = false;
+                shareButton.interactable = true;
+            });
+
+            globalButton.transform.DOMove(shareButton.transform.position, 0.5f);
+            globalButton.transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                globalButton.interactable = false;
+            });
+        }
 
     }
 
@@ -112,6 +155,42 @@ namespace GS.PongFootball
         [Header("Buttons")]
         public Button homeButton;
         public Button restartButton, optionsButton, rateButton;
+
+        #region COIN ANIMATION
+        [Space]
+        [Header("Available coins : (coins to pool)")]
+        public int maxCoins;
+        public Queue<GameObject> coinsQueue = new Queue<GameObject>();
+
+        [Space]
+        [Header("COIN ANIMATION")]
+        public Text coinRewardText;
+        public Transform coinsForAnimationParent;
+        public GameObject animatedCoinPrefab;
+
+        private int resultCoinAmount = 0;
+        public int ResultCoinAmount
+        {
+            get { return resultCoinAmount; }
+            set
+            {
+                resultCoinAmount = value;
+                if (resultCoinAmount <= 0)
+                    resultCoinAmount = 0;
+                coinRewardText.text = resultCoinAmount.ToString();
+            }
+        }
+
+
+        [Space]
+        [Header("Animation settings")]
+        [Range(0.5f, 0.9f)] public float minAnimDuration;
+        [Range(0.9f, 2f)] public float maxAnimDuration;
+
+        public Ease easeType;
+        public float spread;
+
+        #endregion
     }
 
     [Serializable]
@@ -123,11 +202,93 @@ namespace GS.PongFootball
 
         public Button ConfirmButton;
     }
+
+    [Serializable]
+    class LanguageCanvasClass
+    {
+        public LanguageManager languageManager;
+        public CanvasGroup LanguageCanvasGroup;
+
+        public Transform LanguageCanvasButtonsParentTransform;
+
+        public Text LanguageText;
+        public Button ConfirmButton, LeftArrowButton, RightArrowButton;
+
+        public int index = 0;
+
+        public List<string> LanguagesName = new List<string>(9);
+
+        public void Init()
+        {
+            index = languageManager.SelectedLanguage;
+            SelectedLanguageTextFunc();
+
+            LeftArrowButton.onClick.AddListener(() => { DecrementButonFunc(); });
+            RightArrowButton.onClick.AddListener(() => { IncrementButtonFunc(); });
+            ConfirmButton.onClick.AddListener(() => { ConfirmButtonFunc(); });
+
+        }
+
+        private void SelectedLanguageTextFunc()
+        {
+            LanguageText.text = LanguagesName[index % LanguagesName.Count];
+        }
+        private void IncrementButtonFunc()
+        {
+            Debug.Log("A");
+            index++;
+            if (index >= LanguagesName.Count) index = 0;
+            SelectedLanguageTextFunc();
+        }
+
+        private void DecrementButonFunc()
+        {
+            index--;
+            if (index < 0) index = LanguagesName.Count - 1;
+            SelectedLanguageTextFunc();
+        }
+
+        private void ConfirmButtonFunc()
+        {
+            languageManager.SelectedLanguage = index;
+
+            DeActivateLanguageMenuCanvas(() =>
+            {
+                UIManager.Instance.ActivateStartMenuCanvas();
+            });
+        }
+
+        public void ActivateLanguageMenuCanvas()
+        {
+            GameManager.Instance.IsPlay = false;
+            LanguageCanvasGroup.alpha = 1;
+            LanguageCanvasGroup.interactable = true;
+            LanguageCanvasGroup.blocksRaycasts = true;
+            LanguageCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
+
+
+            UIManager.Instance.SetUIState(UI_State.LanguageMenu);
+        }
+
+        public void DeActivateLanguageMenuCanvas(Action action = null)
+        {
+            LanguageCanvasGroup.interactable = false;
+            LanguageCanvasGroup.blocksRaycasts = false;
+            LanguageCanvasButtonsParentTransform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                LanguageCanvasGroup.alpha = 0;
+                if (action != null) action?.Invoke();
+            });
+        }
+    }
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
 
         private UI_State currentUIState, previousUIState;
+
+        [SerializeField] private Text totalCoinText;
+        [SerializeField] private Image totalCoinTextImg;
 
         [SerializeField] private StartMenuCanvasClass startMenuCanvasClass;
         [SerializeField] private PauseMenuCanvasClass pauseMenuCanvasClass;
@@ -135,11 +296,14 @@ namespace GS.PongFootball
         [SerializeField] private RestartConfirmationCanvasClass restartConfirmationCanvasClass;
         [SerializeField] private QuitConfirmationCanvasClass quitConfirmationCanvasClass;
         [SerializeField] private ResultCanvasClass resultCanvasClass;
+        [SerializeField] private LanguageCanvasClass languageCanvasClass;
 
         [SerializeField] private ShopCanvasClass shopCanvasClass;
 
         [Header("Buttons")]
         [SerializeField] private Button pasueButton;
+
+        [HideInInspector] public bool FirstTimeGameOn = false;
 
         private bool tempWinStatus = true;  //Hold Win or lose status value
 
@@ -159,9 +323,17 @@ namespace GS.PongFootball
         private void Start()
         {
             currentUIState = UI_State.StartMenu;
+            UpdateCoinInUI();
 
-            ActivateStartMenuCanvas();
-            DeActivatePauseButtonUI();
+            if (!FirstTimeGameOn)
+            {
+                ActivateStartMenuCanvas();
+                DeActivatePauseButtonUI();
+            }
+            else
+            {
+                SelectedLanguageButtonFunc();
+            }
 
             //Init All the button function
             InItStartMenuButtonsFunc();
@@ -171,6 +343,7 @@ namespace GS.PongFootball
             InitQuitMenuButtonsFunc();
             InitRestartConfimationMenuButtonsFunc();
             InitShopMenuButtonsFunc();
+            languageCanvasClass.Init();
         }
 
         private void Update()
@@ -182,6 +355,11 @@ namespace GS.PongFootball
         {
             previousUIState = currentUIState != previousUIState ? currentUIState : previousUIState;
             currentUIState = state;
+        }
+
+        public void UpdateCoinInUI()
+        {
+            totalCoinText.text = CoinSystem.Instance.GetCoin().ToString();
         }
 
         #region Start Menu Canvas Func
@@ -217,9 +395,11 @@ namespace GS.PongFootball
 
             startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); });
 
-            startMenuCanvasClass.shareButton.onClick.AddListener(() => { ShareButtonFunc(); });
+            startMenuCanvasClass.shareButton.onClick.AddListener(() => { startMenuCanvasClass.MultiplayerButtonFunc(); });
 
             startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); });
+
+            startMenuCanvasClass.selectLanguageButton.onClick.AddListener(() => { SelectedLanguageButtonFunc(); });
         }
 
         private void PlayButtonFunc()
@@ -244,10 +424,15 @@ namespace GS.PongFootball
 
         private void ShopButtonFunc()
         {
-            DeActivateStartMenuCanvas(()=>
+            DeActivateStartMenuCanvas(() =>
             {
                 ActivateShopMenuCanvas();
             });
+        }
+
+        private void SelectedLanguageButtonFunc()
+        {
+            DeActivateStartMenuCanvas(() => { languageCanvasClass.ActivateLanguageMenuCanvas(); });
         }
         #endregion
 
@@ -353,7 +538,7 @@ namespace GS.PongFootball
 
         #region Result Menu Canvas Func
 
-        public void ActivateResultMenuCanvas(bool isWon)
+        public void ActivateResultMenuCanvas(bool isWon, bool giveReward = false)
         {
             tempWinStatus = isWon;
             GameManager.Instance.IsPlay = false;
@@ -363,9 +548,17 @@ namespace GS.PongFootball
             resultCanvasClass.resultCanvasGroup.alpha = 1f;
             resultCanvasClass.resultCanvasGroup.interactable = true;
             resultCanvasClass.resultCanvasGroup.blocksRaycasts = true;
-            resultCanvasClass.resultCanvasButtonsParentTransform.transform.DOScale(Vector3.one, 0.7f);
+            resultCanvasClass.resultCanvasButtonsParentTransform.transform.DOScale(Vector3.one, 0.7f).OnComplete(() =>
+            {
+                if (giveReward)
+                {
+                    CoinAddAnimation(isWon ? 100 : 20);
+                }
+            });
 
             SetUIState(UI_State.ResultMenu);
+
+            resultCanvasClass.ResultCoinAmount = isWon ? 100 :20;
         }
 
         public void DeActivateResultMenuCanvas(Action action = null)
@@ -388,7 +581,10 @@ namespace GS.PongFootball
             });
             resultCanvasClass.restartButton.onClick.AddListener(() => { ResultMenuRestartButtonFunc(); });
             resultCanvasClass.optionsButton.onClick.AddListener(() => { ResultMenuOptionsButtonFunc(); });
-            resultCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); });
+            //resultCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); });
+
+            //Prepare coin animation obj (object-pool)
+            PrepareCoins();
         }
 
         private void ResultMenuRestartButtonFunc()
@@ -401,6 +597,49 @@ namespace GS.PongFootball
             {
                 ActivateOptionsMenuCanvas();
             });
+        }
+
+        private void PrepareCoins()
+        {
+            GameObject coin;
+            for (int i = 0; i < resultCanvasClass.maxCoins; i++)
+            {
+                coin = Instantiate(resultCanvasClass.animatedCoinPrefab);
+                coin.transform.parent = resultCanvasClass.coinsForAnimationParent;
+                coin.SetActive(false);
+                resultCanvasClass.coinsQueue.Enqueue(coin);
+            }
+        }
+
+        void CoinAddAnimation(int amount)
+        {
+            AudioManager.Instance.Play(AudioName.COIN_SOUND);
+            for (int i = 0; i < amount; i++)
+            {
+                //check if there's coins in the pool
+                if (resultCanvasClass.coinsQueue.Count > 0)
+                {
+                    //extract a coin from the pool
+                    GameObject coin = resultCanvasClass.coinsQueue.Dequeue();
+                    coin.SetActive(true);
+                    coin.transform.localScale = Vector3.one;
+
+                    //move coin to the collected coin pos
+                    coin.transform.position = resultCanvasClass.coinsForAnimationParent.transform.position + new Vector3(UnityEngine.Random.Range(-resultCanvasClass.spread, resultCanvasClass.spread), 0f, 0f);
+
+                    //animate coin to target position
+                    float duration = UnityEngine.Random.Range(resultCanvasClass.minAnimDuration, resultCanvasClass.maxAnimDuration);
+                    coin.transform.DOMove(totalCoinTextImg.transform.position, duration)
+                    .SetEase(resultCanvasClass.easeType)
+                    .OnComplete(() =>
+                    {
+                        //executes whenever coin reach target position
+                        coin.SetActive(false);
+                        resultCanvasClass.coinsQueue.Enqueue(coin);;
+                        CoinSystem.Instance.AddCoin(1);
+                    });
+                }
+            }
         }
 
         #endregion
@@ -421,7 +660,7 @@ namespace GS.PongFootball
             }
         }
 
-        public void DeActivateOptionsMenuCanvas(Action action = null, Action<bool> actionWithBool = null)
+        public void DeActivateOptionsMenuCanvas(Action action = null, Action<bool, bool> actionWithBool = null)
         {
             optionsMenuCanvasClass.optionsMenuCanvasGroup.interactable = false;
             optionsMenuCanvasClass.optionsMenuCanvasGroup.blocksRaycasts = false;
@@ -429,7 +668,7 @@ namespace GS.PongFootball
             {
                 optionsMenuCanvasClass.optionsMenuCanvasGroup.alpha = 0;
                 if (action != null) action?.Invoke();
-                if (actionWithBool != null) actionWithBool?.Invoke(tempWinStatus);
+                if (actionWithBool != null) actionWithBool?.Invoke(tempWinStatus, false);
             });
         }
 
@@ -522,7 +761,7 @@ namespace GS.PongFootball
         private void OnOptionExitFunc()
         {
             Action tempAction = null;
-            Action<bool> tempActionWithBool = null;
+            Action<bool, bool> tempActionWithBool = null;
             if (previousUIState == UI_State.StartMenu)
             {
                 tempAction += ActivateStartMenuCanvas;

@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -268,6 +269,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      YelloBall_4: 8224251107026523957
+      YelloBall_2: -3434881183823395610
+      YelloBall_0: 1346449725342309708
+      YelloBall_3: -2807568841102629648
+      YelloBall_1: -2217227985536924489
+      YelloBall_5: -1766758510533502019
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
