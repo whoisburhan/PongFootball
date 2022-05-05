@@ -26,6 +26,26 @@ MonoBehaviour:
     m_Localized: Pilihan
     m_Metadata:
       m_Items: []
+  - m_Id: 4036383621410816
+    m_Localized: Toko
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036497479987200
+    m_Localized: Multipemain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036547211849728
+    m_Localized: Tinjauan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4037038817832960
+    m_Localized: Bahasa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4041723180118016
+    m_Localized: Selesai
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

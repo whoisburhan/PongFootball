@@ -23,6 +23,26 @@ MonoBehaviour:
     m_Key: Options
     m_Metadata:
       m_Items: []
+  - m_Id: 4036383621410816
+    m_Key: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036497479987200
+    m_Key: Multiplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036547211849728
+    m_Key: Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4037038817832960
+    m_Key: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4041723180118016
+    m_Key: Done
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

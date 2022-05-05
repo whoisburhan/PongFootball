@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6aa1c7b87bb11f46b727f86bbbe3c8e, type: 3}
+  m_Name: Ground Object - 7
+  m_EditorClassIdentifier: 
+  GroundName: Purple Ground 2
+  Price: 1500
+  m_FieldPattern: 1
+  GroundColor: {r: 0.79607844, g: 0.4, b: 1, a: 1}
+  SandColor: {r: 0.79607844, g: 0.4, b: 1, a: 1}
+  FieldPatternColor: {r: 1, g: 1, b: 1, a: 1}

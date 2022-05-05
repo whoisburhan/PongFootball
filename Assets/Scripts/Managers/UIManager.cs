@@ -9,7 +9,7 @@ namespace GS.PongFootball
 {
     public enum UI_State
     {
-        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu
+        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu, SetGamePointAndDifficulty
     }
 
     [Serializable]
@@ -281,6 +281,50 @@ namespace GS.PongFootball
             });
         }
     }
+
+    [Serializable]
+    class SetMatchCanvasClass
+    {
+        public CanvasGroup SetMatchCanvasGroup;
+
+        public Transform SetMatchCanvasButtonsParentTransform;
+
+        [Header("Buttons")]
+        public Button ContinueButton;
+
+        public void Init()
+        {
+            ContinueButton.onClick.AddListener(() =>
+            {
+                DeActivateSetMatchMenuCanvas(() =>
+                {
+                    GameManager.Instance.StartCountDown();
+                });
+            });
+        }
+        public void ActivateSetMatchMenuCanvas()
+        {
+            GameManager.Instance.IsPlay = false;
+            SetMatchCanvasGroup.alpha = 1;
+            SetMatchCanvasGroup.interactable = true;
+            SetMatchCanvasGroup.blocksRaycasts = true;
+            SetMatchCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
+
+
+            UIManager.Instance.SetUIState(UI_State.Null);
+        }
+
+        public void DeActivateSetMatchMenuCanvas(Action action = null)
+        {
+            SetMatchCanvasGroup.interactable = false;
+            SetMatchCanvasGroup.blocksRaycasts = false;
+            SetMatchCanvasButtonsParentTransform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                SetMatchCanvasGroup.alpha = 0;
+                if (action != null) action?.Invoke();
+            });
+        }
+    }
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
@@ -297,6 +341,8 @@ namespace GS.PongFootball
         [SerializeField] private QuitConfirmationCanvasClass quitConfirmationCanvasClass;
         [SerializeField] private ResultCanvasClass resultCanvasClass;
         [SerializeField] private LanguageCanvasClass languageCanvasClass;
+
+        [SerializeField] private SetMatchCanvasClass setMatchCanvasClass;
 
         [SerializeField] private ShopCanvasClass shopCanvasClass;
 
@@ -344,6 +390,7 @@ namespace GS.PongFootball
             InitRestartConfimationMenuButtonsFunc();
             InitShopMenuButtonsFunc();
             languageCanvasClass.Init();
+            setMatchCanvasClass.Init();
         }
 
         private void Update()
@@ -404,9 +451,11 @@ namespace GS.PongFootball
 
         private void PlayButtonFunc()
         {
-            DeActivateStartMenuCanvas();
-            GameManager.Instance.StartCountDown();
-            ActivatePauseButtonUI();
+            DeActivateStartMenuCanvas(() =>
+            {
+                setMatchCanvasClass.ActivateSetMatchMenuCanvas();
+                ActivatePauseButtonUI();
+            });
         }
 
         private void OptionsButtonFunc()
@@ -558,7 +607,7 @@ namespace GS.PongFootball
 
             SetUIState(UI_State.ResultMenu);
 
-            resultCanvasClass.ResultCoinAmount = isWon ? 100 :20;
+            resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
         }
 
         public void DeActivateResultMenuCanvas(Action action = null)
@@ -635,8 +684,9 @@ namespace GS.PongFootball
                     {
                         //executes whenever coin reach target position
                         coin.SetActive(false);
-                        resultCanvasClass.coinsQueue.Enqueue(coin);;
+                        resultCanvasClass.coinsQueue.Enqueue(coin); ;
                         CoinSystem.Instance.AddCoin(1);
+                        resultCanvasClass.ResultCoinAmount -= 1;
                     });
                 }
             }

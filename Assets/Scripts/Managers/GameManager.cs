@@ -42,7 +42,7 @@ namespace GS.PongFootball
         [HideInInspector] public string CurrentlySelectedPudOneHitAnimation = "USAHit";
         [HideInInspector] public string CurrentlySelectedPudTwoHitAnimation = "BRAHit";
 
-        public int TargetGoal = 9;
+        public int TargetGoal = 3;
 
         [Header("Goal Score Sptries")]
         [SerializeField] private List<Sprite> scoreTextSprites;
@@ -86,7 +86,7 @@ namespace GS.PongFootball
 
         public void StartCountDown()
         {
-            UIManager.Instance.SetUIState(UI_State.Null);
+            //UIManager.Instance.SetUIState(UI_State.Null);
             ball.gameObject.SetActive(false);
             countDownObject.SetActive(false);
             countDownObject.SetActive(true);

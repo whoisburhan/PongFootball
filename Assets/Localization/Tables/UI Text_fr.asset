@@ -26,6 +26,26 @@ MonoBehaviour:
     m_Localized: Choix
     m_Metadata:
       m_Items: []
+  - m_Id: 4036383621410816
+    m_Localized: magasin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036497479987200
+    m_Localized: Multijoueur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036547211849728
+    m_Localized: Taux
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4037038817832960
+    m_Localized: Langue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4041723180118016
+    m_Localized: Fait
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

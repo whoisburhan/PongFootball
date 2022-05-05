@@ -26,6 +26,26 @@ MonoBehaviour:
     m_Localized: Options
     m_Metadata:
       m_Items: []
+  - m_Id: 4036383621410816
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036497479987200
+    m_Localized: Multiplayer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4036547211849728
+    m_Localized: Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4037038817832960
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4041723180118016
+    m_Localized: Done
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
