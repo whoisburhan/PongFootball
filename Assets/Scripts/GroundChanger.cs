@@ -21,6 +21,11 @@ namespace GS.PongFootball
         [Header("Field Pattern Sprites")]
         [SerializeField] public List<Sprite> FieldPatterns;
 
+        [Header("Local Multiplayer Ground Objs")]
+        [SerializeField] private GameObject purpleSideGround;
+        [SerializeField] private GameObject blueSideGround;
+        [SerializeField] private GroundObject localMultiplayerGroundObj;
+
         private void Awake()
         {
             if (Instance == null)
@@ -40,8 +45,19 @@ namespace GS.PongFootball
             groundSr.color = groundColor;
             sandLayerSr.color = sandColor;
             fieldPattenSr.color = fieldPatternColor;
+            purpleSideGround.SetActive(false);
+            blueSideGround.SetActive(false);
         }
 
+        public void ActivateLocalMultiplayerField()
+        {
+            fieldPattenSr.sprite = FieldPatterns[(int)localMultiplayerGroundObj.m_FieldPattern];
+            groundSr.color = localMultiplayerGroundObj.GroundColor;
+            sandLayerSr.color = localMultiplayerGroundObj.SandColor;
+            fieldPattenSr.color = localMultiplayerGroundObj.FieldPatternColor;
+            purpleSideGround.SetActive(true);
+            blueSideGround.SetActive(true);
+        }
        
     }
 }

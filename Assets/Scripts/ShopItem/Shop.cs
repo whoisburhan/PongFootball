@@ -18,7 +18,7 @@ namespace GS.PongFootball
         [Header("Field Shop")]
         [SerializeField] private GameObject fieldShopPanel;
         [SerializeField] private Button selectFieldShopButton;
-        [SerializeField] private List<Field_ShopItem> shopItemsFields;
+        [SerializeField] public List<Field_ShopItem> shopItemsFields;
         [HideInInspector] public Field_ShopItem CurrentySelectedShopItemField;
 
         [Header("Pud Shop")]

@@ -159,7 +159,7 @@ namespace GS.PongFootball
         #region COIN ANIMATION
         [Space]
         [Header("Available coins : (coins to pool)")]
-        public int maxCoins;
+        [HideInInspector] public int MaxCoins = 50;
         public Queue<GameObject> coinsQueue = new Queue<GameObject>();
 
         [Space]
@@ -292,6 +292,8 @@ namespace GS.PongFootball
         [Header("Buttons")]
         public Button ContinueButton;
 
+        public List<Button> DifficultyButtons;
+        public Image DifficultyImage;
         public void Init()
         {
             ContinueButton.onClick.AddListener(() =>
@@ -304,11 +306,30 @@ namespace GS.PongFootball
         }
         public void ActivateSetMatchMenuCanvas()
         {
-            GameManager.Instance.IsPlay = false;
-            SetMatchCanvasGroup.alpha = 1;
-            SetMatchCanvasGroup.interactable = true;
-            SetMatchCanvasGroup.blocksRaycasts = true;
-            SetMatchCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
+            switch (GameManager.Instance.PlayMode)
+            {
+                case GamePlayMode.OFFLINE:
+                    GameManager.Instance.IsPlay = false;
+                    SetMatchCanvasGroup.alpha = 1;
+                    SetMatchCanvasGroup.interactable = true;
+                    SetMatchCanvasGroup.blocksRaycasts = true;
+                    SetMatchCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
+                    ActivateDifficultyButtons();
+                    break;
+                case GamePlayMode.LOCAL_MULTIPLAYER:
+                    GameManager.Instance.IsPlay = false;
+                    SetMatchCanvasGroup.alpha = 1;
+                    SetMatchCanvasGroup.interactable = true;
+                    SetMatchCanvasGroup.blocksRaycasts = true;
+                    SetMatchCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
+                    DeActivateDifficultyButtons();
+                    GroundChanger.Instance.ActivateLocalMultiplayerField();
+                    break;
+                case GamePlayMode.GLOBAL_MULTIPLAYER:
+                    /// Not Implmented Yet
+                    break;
+            }
+
 
 
             UIManager.Instance.SetUIState(UI_State.Null);
@@ -324,6 +345,19 @@ namespace GS.PongFootball
                 if (action != null) action?.Invoke();
             });
         }
+
+        public void ActivateDifficultyButtons()
+        {
+            foreach (var b in DifficultyButtons) b.interactable = true;
+            DifficultyImage.color = new Color(DifficultyImage.color.r, DifficultyImage.color.g, DifficultyImage.color.b, 1f);
+        }
+
+        public void DeActivateDifficultyButtons()
+        {
+            foreach (var b in DifficultyButtons) b.interactable = false;
+            DifficultyImage.color = new Color(DifficultyImage.color.r, DifficultyImage.color.g, DifficultyImage.color.b, 0.5f);
+        }
+
     }
     public class UIManager : MonoBehaviour
     {
@@ -447,12 +481,37 @@ namespace GS.PongFootball
             startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); });
 
             startMenuCanvasClass.selectLanguageButton.onClick.AddListener(() => { SelectedLanguageButtonFunc(); });
+
+            startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayLocalButtonFunc(); });
+
+            startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayGlobalButtonFunc(); });
         }
 
         private void PlayButtonFunc()
         {
             DeActivateStartMenuCanvas(() =>
             {
+                GameManager.Instance.PlayMode = GamePlayMode.OFFLINE;
+                setMatchCanvasClass.ActivateSetMatchMenuCanvas();
+                ActivatePauseButtonUI();
+            });
+        }
+
+        private void PlayLocalButtonFunc()
+        {
+            DeActivateStartMenuCanvas(() =>
+            {
+                GameManager.Instance.PlayMode = GamePlayMode.LOCAL_MULTIPLAYER;
+                setMatchCanvasClass.ActivateSetMatchMenuCanvas();
+                ActivatePauseButtonUI();
+            });
+        }
+
+        private void PlayGlobalButtonFunc()
+        {
+            DeActivateStartMenuCanvas(() =>
+            {
+                GameManager.Instance.PlayMode = GamePlayMode.GLOBAL_MULTIPLAYER;
                 setMatchCanvasClass.ActivateSetMatchMenuCanvas();
                 ActivatePauseButtonUI();
             });
@@ -551,6 +610,7 @@ namespace GS.PongFootball
             {
                 DeActivatePauseMenuCanvas(false);
                 Home();
+                Shop.Instance.CurrentySelectedShopItemField.ActivateItem();
             });
 
             pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc(); });
@@ -627,6 +687,7 @@ namespace GS.PongFootball
             {
                 DeActivateResultMenuCanvas();
                 Home();
+                Shop.Instance.CurrentySelectedShopItemField.ActivateItem();
             });
             resultCanvasClass.restartButton.onClick.AddListener(() => { ResultMenuRestartButtonFunc(); });
             resultCanvasClass.optionsButton.onClick.AddListener(() => { ResultMenuOptionsButtonFunc(); });
@@ -651,7 +712,7 @@ namespace GS.PongFootball
         private void PrepareCoins()
         {
             GameObject coin;
-            for (int i = 0; i < resultCanvasClass.maxCoins; i++)
+            for (int i = 0; i < resultCanvasClass.MaxCoins; i++)
             {
                 coin = Instantiate(resultCanvasClass.animatedCoinPrefab);
                 coin.transform.parent = resultCanvasClass.coinsForAnimationParent;
@@ -662,7 +723,11 @@ namespace GS.PongFootball
 
         void CoinAddAnimation(int amount)
         {
+            int coinPerFraction = amount > resultCanvasClass.MaxCoins ? amount / resultCanvasClass.MaxCoins : 1;
             AudioManager.Instance.Play(AudioName.COIN_SOUND);
+
+            resultCanvasClass.coinRewardText.DOCounter(amount, 0, 0.5f);
+
             for (int i = 0; i < amount; i++)
             {
                 //check if there's coins in the pool
@@ -685,9 +750,11 @@ namespace GS.PongFootball
                         //executes whenever coin reach target position
                         coin.SetActive(false);
                         resultCanvasClass.coinsQueue.Enqueue(coin); ;
-                        CoinSystem.Instance.AddCoin(1);
-                        resultCanvasClass.ResultCoinAmount -= 1;
+                        CoinSystem.Instance.AddCoin(coinPerFraction);
+
                     });
+
+
                 }
             }
         }

@@ -11,6 +11,10 @@ namespace GS.PongFootball
         EASY = 0, MEDIUM, HARD
     }
 
+    public enum GamePlayMode
+    {
+        OFFLINE = 0, LOCAL_MULTIPLAYER, GLOBAL_MULTIPLAYER
+    }
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
@@ -23,6 +27,8 @@ namespace GS.PongFootball
         public bool IsAllowedToQuit = true;
 
         public DifficultyLevel GameDifficultyLevel;
+
+        public GamePlayMode PlayMode;
 
         public Ball ball;
 
