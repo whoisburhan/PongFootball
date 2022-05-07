@@ -46,6 +46,62 @@ MonoBehaviour:
     m_Localized: Erledigt
     m_Metadata:
       m_Items: []
+  - m_Id: 4709557761634304
+    m_Localized: Global
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709539638046720
+    m_Localized: Lokal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709342539313152
+    m_Localized: Schwer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709324793212928
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709093502513152
+    m_Localized: Leicht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709047973343232
+    m_Localized: Schwierigkeit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709017031962624
+    m_Localized: Vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708896785461248
+    m_Localized: Klang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768965564723200
+    m_Localized: Gebraucht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768939455180800
+    m_Localized: "Ausr\xFCsten"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768905569398784
+    m_Localized: Besorgen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768869259309056
+    m_Localized: Recht
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768852784082944
+    m_Localized: Links
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768799575142400
+    m_Localized: Seitenansicht
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

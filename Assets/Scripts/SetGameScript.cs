@@ -51,10 +51,8 @@ namespace GS.PongFootball
         {
             if (point != GameManager.Instance.TargetGoal)
             {
-                Debug.Log("P:" + GameManager.Instance.TargetGoal);
                 SetPointButton[GameManager.Instance.TargetGoal - 1].GetComponent<Image>().color = normalButtonColor;
                 GameManager.Instance.TargetGoal = point;
-                Debug.Log("P:" + GameManager.Instance.TargetGoal);
                 SetPointButton[GameManager.Instance.TargetGoal - 1].GetComponent<Image>().color = selectedButtonColor;
             }
         }

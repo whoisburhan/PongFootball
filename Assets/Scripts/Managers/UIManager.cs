@@ -107,11 +107,31 @@ namespace GS.PongFootball
         public Button vibrationButton;
         public Image vibrationButtonImg;
 
-        [Header("Difficulty Settings")]
-        public Text difficultyLevelText;
+        [Header("Side View Settings")]
+
+        public Image SideViewTextImg;
+        public Text leftSideText;
+        public Text rightSideText;
         [Space]
         public Button leftSideArrowButton;
         public Button rightSideArrowButton;
+
+        public void ActivateSideViewOption()
+        {
+            SideViewTextImg.color = new Color(SideViewTextImg.color.r,SideViewTextImg.color.g,SideViewTextImg.color.b,1f);
+            leftSideArrowButton.interactable = true;
+            rightSideArrowButton.interactable = true;
+            leftSideText.color = new Color(leftSideText.color.r,leftSideText.color.g,leftSideText.color.b,1f);
+            rightSideText.color = new Color(rightSideText.color.r,rightSideText.color.g,rightSideText.color.b,1f);
+        }
+        public void DeactivateSideViewOption()
+        {
+            SideViewTextImg.color = new Color(SideViewTextImg.color.r,SideViewTextImg.color.g,SideViewTextImg.color.b,0.5f);
+            leftSideArrowButton.interactable = false;
+            rightSideArrowButton.interactable = false;
+            leftSideText.color = new Color(leftSideText.color.r,leftSideText.color.g,leftSideText.color.b,0.5f);
+            rightSideText.color = new Color(rightSideText.color.r,rightSideText.color.g,rightSideText.color.b,0.5f);
+        }
 
     }
 
@@ -151,6 +171,8 @@ namespace GS.PongFootball
         [Space]
         public Sprite matchWinSprite;
         public Sprite matchLoseSprite;
+        public Sprite matchWinBlueSprite;
+        public Sprite matchWinPurpleSprite;
 
         [Header("Buttons")]
         public Button homeButton;
@@ -315,6 +337,7 @@ namespace GS.PongFootball
                     SetMatchCanvasGroup.blocksRaycasts = true;
                     SetMatchCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
                     ActivateDifficultyButtons();
+                    GameManager.Instance.UpdateRandomOpponentPud();
                     break;
                 case GamePlayMode.LOCAL_MULTIPLAYER:
                     GameManager.Instance.IsPlay = false;
@@ -324,6 +347,8 @@ namespace GS.PongFootball
                     SetMatchCanvasButtonsParentTransform.DOScale(Vector3.one, 1f);
                     DeActivateDifficultyButtons();
                     GroundChanger.Instance.ActivateLocalMultiplayerField();
+                    GameManager.Instance.UpdateLocalMultiplayerPud();
+                    GameManager.Instance.ChangeSideView(true);
                     break;
                 case GamePlayMode.GLOBAL_MULTIPLAYER:
                     /// Not Implmented Yet
@@ -446,6 +471,7 @@ namespace GS.PongFootball
         #region Start Menu Canvas Func
         public void ActivateStartMenuCanvas()
         {
+            GameManager.Instance.PlayMode = GamePlayMode.OFFLINE;
             GameManager.Instance.IsPlay = false;
             startMenuCanvasClass.startMenuCanvasGroup.alpha = 1;
             startMenuCanvasClass.startMenuCanvasGroup.interactable = true;
@@ -484,7 +510,7 @@ namespace GS.PongFootball
 
             startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayLocalButtonFunc(); });
 
-            startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayGlobalButtonFunc(); });
+            startMenuCanvasClass.globalButton.onClick.AddListener(() => { PlayGlobalButtonFunc(); });
         }
 
         private void PlayButtonFunc()
@@ -609,8 +635,17 @@ namespace GS.PongFootball
             pauseMenuCanvasClass.homeButtons.onClick.AddListener(() =>
             {
                 DeActivatePauseMenuCanvas(false);
-                Home();
+                
                 Shop.Instance.CurrentySelectedShopItemField.ActivateItem();
+                Shop.Instance.CurrentySelectedShopItemPud.ActivateItem();
+
+                if (GameManager.Instance.PlayMode == GamePlayMode.LOCAL_MULTIPLAYER &&
+                GameManager.Instance.SideView == PudSideView.Left)
+                {
+                    GameManager.Instance.ChangeSideView(false);
+                }
+
+                Home();
             });
 
             pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc(); });
@@ -652,8 +687,14 @@ namespace GS.PongFootball
             tempWinStatus = isWon;
             GameManager.Instance.IsPlay = false;
             DeActivatePauseButtonUI();
-            resultCanvasClass.matchResultImg.sprite = isWon ? resultCanvasClass.matchWinSprite : resultCanvasClass.matchLoseSprite;
-
+            if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
+            {
+                resultCanvasClass.matchResultImg.sprite = isWon ? resultCanvasClass.matchWinSprite : resultCanvasClass.matchLoseSprite;
+            }
+            else
+            {
+                resultCanvasClass.matchResultImg.sprite = isWon ? resultCanvasClass.matchWinBlueSprite : resultCanvasClass.matchWinPurpleSprite;
+            }
             resultCanvasClass.resultCanvasGroup.alpha = 1f;
             resultCanvasClass.resultCanvasGroup.interactable = true;
             resultCanvasClass.resultCanvasGroup.blocksRaycasts = true;
@@ -661,13 +702,27 @@ namespace GS.PongFootball
             {
                 if (giveReward)
                 {
-                    CoinAddAnimation(isWon ? 100 : 20);
+                    if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
+                    {
+                        CoinAddAnimation(isWon ? 100 : 20);
+                    }
+                    else
+                    {
+                        CoinAddAnimation(10);
+                    }
                 }
             });
 
             SetUIState(UI_State.ResultMenu);
 
-            resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
+            if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
+            {
+                resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
+            }
+            else
+            {
+                resultCanvasClass.ResultCoinAmount = 10;
+            }
         }
 
         public void DeActivateResultMenuCanvas(Action action = null)
@@ -686,8 +741,17 @@ namespace GS.PongFootball
             resultCanvasClass.homeButton.onClick.AddListener(() =>
             {
                 DeActivateResultMenuCanvas();
-                Home();
+
                 Shop.Instance.CurrentySelectedShopItemField.ActivateItem();
+                Shop.Instance.CurrentySelectedShopItemPud.ActivateItem();
+
+                if (GameManager.Instance.PlayMode == GamePlayMode.LOCAL_MULTIPLAYER &&
+                GameManager.Instance.SideView == PudSideView.Left)
+                {
+                    GameManager.Instance.ChangeSideView(false);
+                }
+
+                Home();
             });
             resultCanvasClass.restartButton.onClick.AddListener(() => { ResultMenuRestartButtonFunc(); });
             resultCanvasClass.optionsButton.onClick.AddListener(() => { ResultMenuOptionsButtonFunc(); });
@@ -766,6 +830,15 @@ namespace GS.PongFootball
 
         public void ActivateOptionsMenuCanvas(bool changeUIState = true)
         {
+            if(GameManager.Instance.PlayMode == GamePlayMode.LOCAL_MULTIPLAYER)
+            {
+                optionsMenuCanvasClass.DeactivateSideViewOption();
+            }
+            else
+            {
+                optionsMenuCanvasClass.ActivateSideViewOption();
+            }
+
             optionsMenuCanvasClass.optionsMenuCanvasGroup.alpha = 1;
             optionsMenuCanvasClass.optionsMenuCanvasGroup.interactable = true;
             optionsMenuCanvasClass.optionsMenuCanvasGroup.blocksRaycasts = true;
@@ -794,8 +867,8 @@ namespace GS.PongFootball
             optionsMenuCanvasClass.confirmationButton.onClick.AddListener(() => { OnOptionExitFunc(); });
             optionsMenuCanvasClass.soundButton.onClick.AddListener(() => { SoundSettingsFunc(); });
             optionsMenuCanvasClass.vibrationButton.onClick.AddListener(() => { VibrationSettingsFunc(); });
-            optionsMenuCanvasClass.leftSideArrowButton.onClick.AddListener(() => { DifficultyIncreaseDecreaseButton(false); });
-            optionsMenuCanvasClass.rightSideArrowButton.onClick.AddListener(() => { DifficultyIncreaseDecreaseButton(true); });
+            optionsMenuCanvasClass.leftSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); });
+            optionsMenuCanvasClass.rightSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); });
         }
 
         private void SoundSettingsFunc()
@@ -825,40 +898,21 @@ namespace GS.PongFootball
             });
         }
 
-        private void DifficultyIncreaseDecreaseButton(bool isIncrease)
+        private void ChangeSideViewButton()
         {
-            if (isIncrease)
+            if(GameManager.Instance.SideView == PudSideView.Right)
             {
-                switch (GameManager.Instance.GameDifficultyLevel)
-                {
-                    case DifficultyLevel.EASY:
-                        GameManager.Instance.GameDifficultyLevel = DifficultyLevel.MEDIUM;
-                        break;
-                    case DifficultyLevel.MEDIUM:
-                        GameManager.Instance.GameDifficultyLevel = DifficultyLevel.HARD;
-                        break;
-                    case DifficultyLevel.HARD:
-                        GameManager.Instance.GameDifficultyLevel = DifficultyLevel.EASY;
-                        break;
-                }
+                optionsMenuCanvasClass.leftSideText.gameObject.SetActive(true);
+                optionsMenuCanvasClass.rightSideText.gameObject.SetActive(false);
+                GameManager.Instance.SideView = PudSideView.Left;
             }
             else
             {
-                switch (GameManager.Instance.GameDifficultyLevel)
-                {
-                    case DifficultyLevel.EASY:
-                        GameManager.Instance.GameDifficultyLevel = DifficultyLevel.HARD;
-                        break;
-                    case DifficultyLevel.MEDIUM:
-                        GameManager.Instance.GameDifficultyLevel = DifficultyLevel.EASY;
-                        break;
-                    case DifficultyLevel.HARD:
-                        GameManager.Instance.GameDifficultyLevel = DifficultyLevel.MEDIUM;
-                        break;
-                }
+                optionsMenuCanvasClass.leftSideText.gameObject.SetActive(false);
+                optionsMenuCanvasClass.rightSideText.gameObject.SetActive(true);
+                GameManager.Instance.SideView = PudSideView.Right;
             }
 
-            optionsMenuCanvasClass.difficultyLevelText.text = DifultyLevelString(GameManager.Instance.GameDifficultyLevel);
         }
 
         private string DifultyLevelString(DifficultyLevel difficultyLevel)

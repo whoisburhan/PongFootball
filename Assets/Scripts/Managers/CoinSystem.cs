@@ -23,7 +23,6 @@ namespace GS.PongFootball
 
         public int GetCoin()
         {
-            Debug.Log("COIN : " + GameData.Instance.State.TotalCoin);
             return GameData.Instance.State.TotalCoin;
         }
 

@@ -46,6 +46,62 @@ MonoBehaviour:
     m_Localized: Done
     m_Metadata:
       m_Items: []
+  - m_Id: 4709017031962624
+    m_Localized: VIbration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4708896785461248
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709047973343232
+    m_Localized: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709093502513152
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709324793212928
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709342539313152
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709539638046720
+    m_Localized: Local
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709557761634304
+    m_Localized: Global
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768799575142400
+    m_Localized: SideView
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768852784082944
+    m_Localized: Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768869259309056
+    m_Localized: Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768905569398784
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768939455180800
+    m_Localized: Equipe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4768965564723200
+    m_Localized: Used
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

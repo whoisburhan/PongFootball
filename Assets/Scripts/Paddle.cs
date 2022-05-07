@@ -19,10 +19,11 @@ namespace GS.PongFootball
 
         public Rigidbody2D ball;
 
-        [SerializeField] protected PaddleType paddleType;
+        [SerializeField] public PaddleType paddleType;
         [SerializeField] protected PaddleSide paddleSide;
 
-        private Vector2 fingerUpPosition, fingerDownPosition;
+        private Vector2 fingerUpPosition, fingerDownPosition, fingerUpPositionLeft,
+        fingerDownPositionLeft, fingerUpPositionRight, fingerDownPositionRight;
         private Vector2 direction;
 
         private void Awake()
@@ -72,23 +73,54 @@ namespace GS.PongFootball
                     Touch[] touches = Input.touches;
                     foreach (Touch touch in touches)
                     {
-                        if (touch.phase == TouchPhase.Began)
+                        if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
                         {
-                            fingerUpPosition = touch.position;
+                            if (touch.phase == TouchPhase.Began)
+                            {
+                                fingerUpPosition = touch.position;
+                                fingerDownPosition = touch.position;
+                            }
+
+
+                            fingerUpPosition = fingerDownPosition;
                             fingerDownPosition = touch.position;
+
+                            direction = fingerDownPosition.y - fingerUpPosition.y == 0 ? Vector2.zero : fingerDownPosition.y - fingerUpPosition.y > 0 ? Vector2.up : Vector2.down;
+
                         }
 
-                        // if (touch.phase == TouchPhase.Ended)
-                        // {
-                        //     fingerDownPosition = touch.position;
-                        //     DetectSwipe();
-                        // }
+                        else
+                        {
+                            var _temp = Camera.main.ScreenToWorldPoint(touch.position);
+                            if (paddleSide == PaddleSide.LEFT && _temp.x < 0)
+                            {
+                                if (touch.phase == TouchPhase.Began)
+                                {
+                                    fingerUpPositionLeft = touch.position;
+                                    fingerDownPositionLeft = touch.position;
+                                }
 
-                        fingerUpPosition = fingerDownPosition;
-                        fingerDownPosition = touch.position;
 
-                        direction = fingerDownPosition.y - fingerUpPosition.y == 0 ? Vector2.zero : fingerDownPosition.y - fingerUpPosition.y > 0 ? Vector2.up : Vector2.down;
+                                fingerUpPositionLeft = fingerDownPositionLeft;
+                                fingerDownPositionLeft = touch.position;
 
+                                direction = fingerDownPositionLeft.y - fingerUpPositionLeft.y == 0 ? Vector2.zero : fingerDownPositionLeft.y - fingerUpPositionLeft.y > 0 ? Vector2.up : Vector2.down;
+                            }
+                            else if (paddleSide == PaddleSide.RIGHT && _temp.x > 0)
+                            {
+                                if (touch.phase == TouchPhase.Began)
+                                {
+                                    fingerUpPositionRight = touch.position;
+                                    fingerDownPositionRight = touch.position;
+                                }
+
+
+                                fingerUpPositionRight = fingerDownPositionRight;
+                                fingerDownPositionRight = touch.position;
+
+                                direction = fingerDownPositionRight.y - fingerUpPositionRight.y == 0 ? Vector2.zero : fingerDownPositionRight.y - fingerUpPositionRight.y > 0 ? Vector2.up : Vector2.down;
+                            }
+                        }
                     }
                 }
             }
@@ -96,17 +128,53 @@ namespace GS.PongFootball
 
         private void KeyBoardInput()
         {
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
             {
-                direction = Vector2.up;
-            }
-            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                direction = Vector2.down;
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+                {
+                    direction = Vector2.up;
+                }
+                else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+                {
+                    direction = Vector2.down;
+                }
+                else
+                {
+                    direction = Vector2.zero;
+                }
             }
             else
             {
-                direction = Vector2.zero;
+                if (paddleSide == PaddleSide.LEFT)
+                {
+                    if (Input.GetKey(KeyCode.W))
+                    {
+                        direction = Vector2.up;
+                    }
+                    else if (Input.GetKey(KeyCode.S))
+                    {
+                        direction = Vector2.down;
+                    }
+                    else
+                    {
+                        direction = Vector2.zero;
+                    }
+                }
+                else
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        direction = Vector2.up;
+                    }
+                    else if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        direction = Vector2.down;
+                    }
+                    else
+                    {
+                        direction = Vector2.zero;
+                    }
+                }
             }
         }
 
@@ -116,7 +184,8 @@ namespace GS.PongFootball
 
         private void AIPaddle()
         {
-            if ((paddleSide == PaddleSide.LEFT && ball.velocity.x < 0f) || (paddleSide == PaddleSide.RIGHT && ball.velocity.x > 0f))
+            if ( ((GameManager.Instance.SideView == PudSideView.Right) && (paddleSide == PaddleSide.LEFT && ball.velocity.x < 0f) || (paddleSide == PaddleSide.RIGHT && ball.velocity.x > 0f))
+             || ((GameManager.Instance.SideView == PudSideView.Left) && (paddleSide == PaddleSide.LEFT && ball.velocity.x > 0f) || (paddleSide == PaddleSide.RIGHT && ball.velocity.x < 0f)))
             {
                 // Move the paddle in the direction of the ball to track it
                 if (ball.position.y > rigidbody.position.y)
