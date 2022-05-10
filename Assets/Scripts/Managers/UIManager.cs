@@ -9,7 +9,7 @@ namespace GS.PongFootball
 {
     public enum UI_State
     {
-        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu, SetGamePointAndDifficulty
+        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu, SetGamePointAndDifficulty, GlobalMultiplayer
     }
 
     [Serializable]
@@ -118,19 +118,19 @@ namespace GS.PongFootball
 
         public void ActivateSideViewOption()
         {
-            SideViewTextImg.color = new Color(SideViewTextImg.color.r,SideViewTextImg.color.g,SideViewTextImg.color.b,1f);
+            SideViewTextImg.color = new Color(SideViewTextImg.color.r, SideViewTextImg.color.g, SideViewTextImg.color.b, 1f);
             leftSideArrowButton.interactable = true;
             rightSideArrowButton.interactable = true;
-            leftSideText.color = new Color(leftSideText.color.r,leftSideText.color.g,leftSideText.color.b,1f);
-            rightSideText.color = new Color(rightSideText.color.r,rightSideText.color.g,rightSideText.color.b,1f);
+            leftSideText.color = new Color(leftSideText.color.r, leftSideText.color.g, leftSideText.color.b, 1f);
+            rightSideText.color = new Color(rightSideText.color.r, rightSideText.color.g, rightSideText.color.b, 1f);
         }
         public void DeactivateSideViewOption()
         {
-            SideViewTextImg.color = new Color(SideViewTextImg.color.r,SideViewTextImg.color.g,SideViewTextImg.color.b,0.5f);
+            SideViewTextImg.color = new Color(SideViewTextImg.color.r, SideViewTextImg.color.g, SideViewTextImg.color.b, 0.5f);
             leftSideArrowButton.interactable = false;
             rightSideArrowButton.interactable = false;
-            leftSideText.color = new Color(leftSideText.color.r,leftSideText.color.g,leftSideText.color.b,0.5f);
-            rightSideText.color = new Color(rightSideText.color.r,rightSideText.color.g,rightSideText.color.b,0.5f);
+            leftSideText.color = new Color(leftSideText.color.r, leftSideText.color.g, leftSideText.color.b, 0.5f);
+            rightSideText.color = new Color(rightSideText.color.r, rightSideText.color.g, rightSideText.color.b, 0.5f);
         }
 
     }
@@ -245,9 +245,9 @@ namespace GS.PongFootball
             index = languageManager.SelectedLanguage;
             SelectedLanguageTextFunc();
 
-            LeftArrowButton.onClick.AddListener(() => { DecrementButonFunc(); });
-            RightArrowButton.onClick.AddListener(() => { IncrementButtonFunc(); });
-            ConfirmButton.onClick.AddListener(() => { ConfirmButtonFunc(); });
+            LeftArrowButton.onClick.AddListener(() => { DecrementButonFunc(); UIManager.Instance.PlayButtonClickSound(); });
+            RightArrowButton.onClick.AddListener(() => { IncrementButtonFunc(); UIManager.Instance.PlayButtonClickSound(); });
+            ConfirmButton.onClick.AddListener(() => { ConfirmButtonFunc(); UIManager.Instance.PlayButtonClickSound(); });
 
         }
 
@@ -257,7 +257,6 @@ namespace GS.PongFootball
         }
         private void IncrementButtonFunc()
         {
-            Debug.Log("A");
             index++;
             if (index >= LanguagesName.Count) index = 0;
             SelectedLanguageTextFunc();
@@ -307,6 +306,7 @@ namespace GS.PongFootball
     [Serializable]
     class SetMatchCanvasClass
     {
+        public GlobalMultiplayerCanvasClass globalMultiplayerCanvasClass;
         public CanvasGroup SetMatchCanvasGroup;
 
         public Transform SetMatchCanvasButtonsParentTransform;
@@ -320,11 +320,14 @@ namespace GS.PongFootball
         {
             ContinueButton.onClick.AddListener(() =>
             {
+                UIManager.Instance.PlayButtonClickSound();
                 DeActivateSetMatchMenuCanvas(() =>
                 {
                     GameManager.Instance.StartCountDown();
                 });
             });
+
+            globalMultiplayerCanvasClass.Init();
         }
         public void ActivateSetMatchMenuCanvas()
         {
@@ -351,7 +354,7 @@ namespace GS.PongFootball
                     GameManager.Instance.ChangeSideView(true);
                     break;
                 case GamePlayMode.GLOBAL_MULTIPLAYER:
-                    /// Not Implmented Yet
+                    globalMultiplayerCanvasClass.ActivateGlobalMultiplayerCanvas();
                     break;
             }
 
@@ -384,14 +387,106 @@ namespace GS.PongFootball
         }
 
     }
+
+    [Serializable]
+    class GlobalMultiplayerCanvasClass
+    {
+        public CanvasGroup GlobalMultiplayerCanvasGroup;
+
+        public Transform GlobalMultiplayerCanvasButtonsParentTransform;
+
+        [Header("Buttons")]
+        public Button QuitButton;
+
+        public Text MatchmakingText, StartInText, TimerText, NoteText;
+
+        public float MinMatchMakingTime, MaxMatchMakingTime;
+
+        private bool goToNextStep;
+        public void Init()
+        {
+            QuitButton.onClick.AddListener(() =>
+            {
+                UIManager.Instance.PlayButtonClickSound();
+                DOTween.KillAll();
+                DeActivateGlobalMultiplayerCanvas(() =>
+                {
+                    UIManager.Instance.ActivateStartMenuCanvas();
+                });
+            });
+        }
+        public void ActivateGlobalMultiplayerCanvas()
+        {
+            goToNextStep = true;
+            GlobalMultiplayerCanvasGroup.alpha = 1;
+            GlobalMultiplayerCanvasGroup.interactable = true;
+            GlobalMultiplayerCanvasGroup.blocksRaycasts = true;
+
+            GlobalMultiplayerCanvasButtonsParentTransform.DOScale(Vector3.one, 1f).OnComplete(() =>
+            {
+                QuitButton.gameObject.SetActive(true);
+                MatchmakingText.gameObject.SetActive(true);
+                NoteText.gameObject.SetActive(true);
+                StartInText.gameObject.SetActive(false);
+                TimerText.gameObject.SetActive(false);
+
+                TimerText.DOCounter(1, 0, UnityEngine.Random.Range(MinMatchMakingTime, MaxMatchMakingTime + 1))
+                .OnComplete(() =>
+                {
+                    if (goToNextStep)
+                    {
+                        QuitButton.gameObject.SetActive(false);
+                        MatchmakingText.gameObject.SetActive(false);
+                        NoteText.gameObject.SetActive(false);
+                        StartInText.gameObject.SetActive(true);
+                        TimerText.gameObject.SetActive(true);
+                        TimerText.DOCounter(5, 0, 5f).OnComplete(() =>
+                        {
+                            DeActivateGlobalMultiplayerCanvas(() =>
+                            {
+                                QuitButton.gameObject.SetActive(true);
+                                MatchmakingText.gameObject.SetActive(true);
+                                NoteText.gameObject.SetActive(true);
+                                StartInText.gameObject.SetActive(false);
+                                TimerText.gameObject.SetActive(false);
+
+                                GameManager.Instance.StartCountDown();
+                                GameManager.Instance.UpdateRandomOpponentPud();
+
+                            });
+
+                        });
+                    }
+                });
+            });
+
+        }
+
+        public void DeActivateGlobalMultiplayerCanvas(Action action = null)
+        {
+            goToNextStep = false;
+            GlobalMultiplayerCanvasGroup.interactable = false;
+            GlobalMultiplayerCanvasGroup.blocksRaycasts = false;
+            GlobalMultiplayerCanvasButtonsParentTransform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+            {
+                GlobalMultiplayerCanvasGroup.alpha = 0;
+                if (action != null) action?.Invoke();
+            });
+        }
+
+
+    }
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
 
-        private UI_State currentUIState, previousUIState;
+        [HideInInspector] public UI_State currentUIState, previousUIState;
 
         [SerializeField] private Text totalCoinText;
         [SerializeField] private Image totalCoinTextImg;
+
+        [SerializeField] public GameObject TargetTextObj;
+        [SerializeField] public Text TargetGoalText;
 
         [SerializeField] private StartMenuCanvasClass startMenuCanvasClass;
         [SerializeField] private PauseMenuCanvasClass pauseMenuCanvasClass;
@@ -430,6 +525,8 @@ namespace GS.PongFootball
             currentUIState = UI_State.StartMenu;
             UpdateCoinInUI();
 
+            TargetGoalText.text = GameManager.Instance.TargetGoal.ToString();
+
             if (!FirstTimeGameOn)
             {
                 ActivateStartMenuCanvas();
@@ -459,7 +556,7 @@ namespace GS.PongFootball
 
         public void SetUIState(UI_State state)
         {
-            previousUIState = currentUIState != previousUIState ? currentUIState : previousUIState;
+            previousUIState = currentUIState;
             currentUIState = state;
         }
 
@@ -473,6 +570,8 @@ namespace GS.PongFootball
         {
             GameManager.Instance.PlayMode = GamePlayMode.OFFLINE;
             GameManager.Instance.IsPlay = false;
+            DeActivatePauseButtonInterectable();
+            TargetTextObj.SetActive(false);
             startMenuCanvasClass.startMenuCanvasGroup.alpha = 1;
             startMenuCanvasClass.startMenuCanvasGroup.interactable = true;
             startMenuCanvasClass.startMenuCanvasGroup.blocksRaycasts = true;
@@ -496,21 +595,21 @@ namespace GS.PongFootball
 
         private void InItStartMenuButtonsFunc()
         {
-            startMenuCanvasClass.playButton.onClick.AddListener(() => { PlayButtonFunc(); });
+            startMenuCanvasClass.playButton.onClick.AddListener(() => { PlayButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); });
+            startMenuCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); });
+            startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.shareButton.onClick.AddListener(() => { startMenuCanvasClass.MultiplayerButtonFunc(); });
+            startMenuCanvasClass.shareButton.onClick.AddListener(() => { startMenuCanvasClass.MultiplayerButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); });
+            startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.selectLanguageButton.onClick.AddListener(() => { SelectedLanguageButtonFunc(); });
+            startMenuCanvasClass.selectLanguageButton.onClick.AddListener(() => { SelectedLanguageButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayLocalButtonFunc(); });
+            startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayLocalButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.globalButton.onClick.AddListener(() => { PlayGlobalButtonFunc(); });
+            startMenuCanvasClass.globalButton.onClick.AddListener(() => { PlayGlobalButtonFunc(); PlayButtonClickSound(); });
         }
 
         private void PlayButtonFunc()
@@ -584,7 +683,10 @@ namespace GS.PongFootball
 
         public void ActivatePauseButtonInterectable()
         {
-            pasueButton.interactable = true;
+            if (GameManager.Instance.PlayMode != GamePlayMode.GLOBAL_MULTIPLAYER)
+            {
+                pasueButton.interactable = true;
+            }
         }
         public void DeActivatePauseButtonInterectable()
         {
@@ -593,6 +695,8 @@ namespace GS.PongFootball
 
         public void ActivatePauseMenuCanvas()
         {
+            SetUIState(UI_State.PauseMenu); // Sequence Important[Must be called before  "GameManager.Instance.DeActivateBallToPause()"]
+
             GameManager.Instance.IsPlay = false;
             GameManager.Instance.DeActivateBallToPause();
             DeActivatePauseButtonUI();
@@ -601,12 +705,11 @@ namespace GS.PongFootball
             pauseMenuCanvasClass.pauseMenuCanvasGroup.blocksRaycasts = true;
             pauseMenuCanvasClass.pauseMenuButtonsParentTransform.transform.DOScale(Vector3.one, 0.7f);
 
-            SetUIState(UI_State.PauseMenu);
+
         }
 
         public void DeActivatePauseMenuCanvas(bool resumeGame = true, Action action = null)
         {
-            Debug.Log("AAA " + resumeGame);
             UIManager.Instance.ActivatePauseButtonInterectable();
 
             pauseMenuCanvasClass.pauseMenuCanvasGroup.interactable = false;
@@ -630,12 +733,13 @@ namespace GS.PongFootball
 
         private void InitPauseMenuButtonsFunc()
         {
-            pasueButton.onClick.AddListener(() => { PauseButtonFunc(); });
+            pasueButton.onClick.AddListener(() => { PauseButtonFunc(); PlayButtonClickSound(); });
 
             pauseMenuCanvasClass.homeButtons.onClick.AddListener(() =>
             {
+                PlayButtonClickSound();
                 DeActivatePauseMenuCanvas(false);
-                
+
                 Shop.Instance.CurrentySelectedShopItemField.ActivateItem();
                 Shop.Instance.CurrentySelectedShopItemPud.ActivateItem();
 
@@ -648,11 +752,11 @@ namespace GS.PongFootball
                 Home();
             });
 
-            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc(); });
+            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc(); PlayNotificationSound(); });
 
-            pauseMenuCanvasClass.optionsButton.onClick.AddListener(() => { PauseMenuOptionsButtonFunc(); });
+            pauseMenuCanvasClass.optionsButton.onClick.AddListener(() => { PauseMenuOptionsButtonFunc(); PlayButtonClickSound(); });
 
-            pauseMenuCanvasClass.continueButton.onClick.AddListener(() => { ContnueButtonFromPauseMenuFunc(); });
+            pauseMenuCanvasClass.continueButton.onClick.AddListener(() => { ContnueButtonFromPauseMenuFunc(); PlayButtonClickSound(); });
         }
 
         private void PauseButtonFunc()
@@ -715,13 +819,25 @@ namespace GS.PongFootball
 
             SetUIState(UI_State.ResultMenu);
 
-            if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
+            if (giveReward)
             {
-                resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
+                if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
+                {
+                    resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
+                }
+                else
+                {
+                    resultCanvasClass.ResultCoinAmount = 10;
+                }
+            }
+
+            if (GameManager.Instance.PlayMode == GamePlayMode.GLOBAL_MULTIPLAYER)
+            {
+                resultCanvasClass.restartButton.interactable = false;
             }
             else
             {
-                resultCanvasClass.ResultCoinAmount = 10;
+                resultCanvasClass.restartButton.interactable = true;
             }
         }
 
@@ -740,6 +856,7 @@ namespace GS.PongFootball
         {
             resultCanvasClass.homeButton.onClick.AddListener(() =>
             {
+                PlayButtonClickSound();
                 DeActivateResultMenuCanvas();
 
                 Shop.Instance.CurrentySelectedShopItemField.ActivateItem();
@@ -753,8 +870,8 @@ namespace GS.PongFootball
 
                 Home();
             });
-            resultCanvasClass.restartButton.onClick.AddListener(() => { ResultMenuRestartButtonFunc(); });
-            resultCanvasClass.optionsButton.onClick.AddListener(() => { ResultMenuOptionsButtonFunc(); });
+            resultCanvasClass.restartButton.onClick.AddListener(() => { ResultMenuRestartButtonFunc(); PlayNotificationSound(); });
+            resultCanvasClass.optionsButton.onClick.AddListener(() => { ResultMenuOptionsButtonFunc(); PlayButtonClickSound(); });
             //resultCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); });
 
             //Prepare coin animation obj (object-pool)
@@ -821,6 +938,7 @@ namespace GS.PongFootball
 
                 }
             }
+
         }
 
         #endregion
@@ -830,7 +948,7 @@ namespace GS.PongFootball
 
         public void ActivateOptionsMenuCanvas(bool changeUIState = true)
         {
-            if(GameManager.Instance.PlayMode == GamePlayMode.LOCAL_MULTIPLAYER)
+            if (GameManager.Instance.PlayMode == GamePlayMode.LOCAL_MULTIPLAYER)
             {
                 optionsMenuCanvasClass.DeactivateSideViewOption();
             }
@@ -864,11 +982,11 @@ namespace GS.PongFootball
 
         private void InitOptionsMenuButtonsFunc()
         {
-            optionsMenuCanvasClass.confirmationButton.onClick.AddListener(() => { OnOptionExitFunc(); });
-            optionsMenuCanvasClass.soundButton.onClick.AddListener(() => { SoundSettingsFunc(); });
-            optionsMenuCanvasClass.vibrationButton.onClick.AddListener(() => { VibrationSettingsFunc(); });
-            optionsMenuCanvasClass.leftSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); });
-            optionsMenuCanvasClass.rightSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); });
+            optionsMenuCanvasClass.confirmationButton.onClick.AddListener(() => { OnOptionExitFunc(); PlayButtonClickSound(); });
+            optionsMenuCanvasClass.soundButton.onClick.AddListener(() => { SoundSettingsFunc(); PlayButtonClickSound(); });
+            optionsMenuCanvasClass.vibrationButton.onClick.AddListener(() => { VibrationSettingsFunc(); PlayButtonClickSound(); });
+            optionsMenuCanvasClass.leftSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); PlayButtonClickSound(); });
+            optionsMenuCanvasClass.rightSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); PlayButtonClickSound(); });
         }
 
         private void SoundSettingsFunc()
@@ -900,7 +1018,7 @@ namespace GS.PongFootball
 
         private void ChangeSideViewButton()
         {
-            if(GameManager.Instance.SideView == PudSideView.Right)
+            if (GameManager.Instance.SideView == PudSideView.Right)
             {
                 optionsMenuCanvasClass.leftSideText.gameObject.SetActive(true);
                 optionsMenuCanvasClass.rightSideText.gameObject.SetActive(false);
@@ -969,6 +1087,7 @@ namespace GS.PongFootball
                          }*/
                         break;
                     case UI_State.StartMenu:
+                        PlayNotificationSound();
                         DeActivateStartMenuCanvas(() => { ActivateQuitConfimationMenuCanvas(); });
                         break;
                     case UI_State.PauseMenu:
@@ -1033,8 +1152,8 @@ namespace GS.PongFootball
 
         private void InitQuitMenuButtonsFunc()
         {
-            quitConfirmationCanvasClass.yesButton.onClick.AddListener(() => { QuitMenuYesButtonFunc(); });
-            quitConfirmationCanvasClass.noButton.onClick.AddListener(() => { QuitMenuNoButtonFunc(); });
+            quitConfirmationCanvasClass.yesButton.onClick.AddListener(() => { QuitMenuYesButtonFunc(); PlayButtonClickSound(); });
+            quitConfirmationCanvasClass.noButton.onClick.AddListener(() => { QuitMenuNoButtonFunc(); PlayButtonClickSound(); });
         }
 
         private void QuitMenuYesButtonFunc()
@@ -1072,8 +1191,8 @@ namespace GS.PongFootball
 
         private void InitRestartConfimationMenuButtonsFunc()
         {
-            restartConfirmationCanvasClass.yesButton.onClick.AddListener(() => { RestartMenuYesButtonFunc(); });
-            restartConfirmationCanvasClass.noButton.onClick.AddListener(() => { RestartMenuNoButtonFunc(); });
+            restartConfirmationCanvasClass.yesButton.onClick.AddListener(() => { RestartMenuYesButtonFunc(); PlayButtonClickSound(); });
+            restartConfirmationCanvasClass.noButton.onClick.AddListener(() => { RestartMenuNoButtonFunc(); PlayButtonClickSound(); });
         }
 
         private void RestartMenuYesButtonFunc()
@@ -1123,7 +1242,7 @@ namespace GS.PongFootball
 
         private void InitShopMenuButtonsFunc()
         {
-            shopCanvasClass.ConfirmButton.onClick.AddListener(() => { ShopConfimButtonFunc(); });
+            shopCanvasClass.ConfirmButton.onClick.AddListener(() => { ShopConfimButtonFunc(); PlayButtonClickSound(); });
         }
 
         private void ShopConfimButtonFunc()
@@ -1144,6 +1263,15 @@ namespace GS.PongFootball
             Application.OpenURL("https://www.google.com");
         }
 
+        public void PlayButtonClickSound()
+        {
+            AudioManager.Instance.Play(AudioName.BUTTON_CLICK);
+        }
+
+        public void PlayNotificationSound()
+        {
+            AudioManager.Instance.Play(AudioName.WARNING);
+        }
         #endregion
 
     }

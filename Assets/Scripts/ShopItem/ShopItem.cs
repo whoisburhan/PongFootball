@@ -20,7 +20,11 @@ namespace GS.PongFootball
         [SerializeField] public int price;
         [SerializeField] public Text priceText;
         [SerializeField] protected Button shopItemButton;
-        [SerializeField] protected Text shopItemButtonText;
+        [Space]
+        [SerializeField] protected Text shopItemButtonText_Buy;
+        [SerializeField] protected Text shopItemButtonText_Equip;
+        [SerializeField] protected Text shopItemButtonText_Equipped;
+        [Space]
         [SerializeField] public Image shopItemImg;
 
         public virtual void Start()
@@ -61,17 +65,23 @@ namespace GS.PongFootball
                 case ShopItemState.BUY:
                     priceObj.SetActive(true);
                     shopItemButton.GetComponent<Image>().color = shopItemButtonColor.BuyColor;
-                    shopItemButtonText.text = "BUY";
+                    shopItemButtonText_Buy.gameObject.SetActive(true);
+                    shopItemButtonText_Equip.gameObject.SetActive(false);
+                    shopItemButtonText_Equipped.gameObject.SetActive(false);
                     break;
                 case ShopItemState.EQUIPE:
                     priceObj.SetActive(false);
                     shopItemButton.GetComponent<Image>().color = shopItemButtonColor.EquipColor;
-                    shopItemButtonText.text = "EQUIP";
+                    shopItemButtonText_Buy.gameObject.SetActive(false);
+                    shopItemButtonText_Equip.gameObject.SetActive(true);
+                    shopItemButtonText_Equipped.gameObject.SetActive(false);
                     break;
                 case ShopItemState.EQUIPED:
                     priceObj.SetActive(false);
                     shopItemButton.GetComponent<Image>().color = shopItemButtonColor.EquipedColor;
-                    shopItemButtonText.text = "EQUIPED";
+                    shopItemButtonText_Buy.gameObject.SetActive(false);
+                    shopItemButtonText_Equip.gameObject.SetActive(false);
+                    shopItemButtonText_Equipped.gameObject.SetActive(true);
                     break;
             }
         }
@@ -95,9 +105,9 @@ namespace GS.PongFootball
             Debug.Log("BUY ITEM Function Executed");
         }
 
-        protected virtual void EquipeItem() { Debug.Log("EQUIP ITEM Function Execute"); }
+        protected virtual void EquipeItem() { /*EQUIP ITEM Function Execute */ }
 
-        protected virtual void EquipedItem() { Debug.Log("EQUIPED ITEM Function Execute"); }
+        protected virtual void EquipedItem() { /*EQUIPED ITEM Function Execute */ }
 
         public virtual void ActivateItem()
         {

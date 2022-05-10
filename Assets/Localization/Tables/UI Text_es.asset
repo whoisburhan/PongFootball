@@ -102,6 +102,26 @@ MonoBehaviour:
     m_Localized: Utilizado
     m_Metadata:
       m_Items: []
+  - m_Id: 4798309225885696
+    m_Localized: Pausa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4798377639178240
+    m_Localized: Salida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4798397335629824
+    m_Localized: Punto fijo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4800590755295232
+    m_Localized: Estas seguro ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4800725509894144
+    m_Localized: Seguro
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

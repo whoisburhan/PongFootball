@@ -102,6 +102,26 @@ MonoBehaviour:
     m_Localized: Digunakan
     m_Metadata:
       m_Items: []
+  - m_Id: 4798309225885696
+    m_Localized: Berhenti sebentar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4798377639178240
+    m_Localized: KELUAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4798397335629824
+    m_Localized: Set point
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4800590755295232
+    m_Localized: Apa kamu yakin ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4800725509894144
+    m_Localized: Yakin
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

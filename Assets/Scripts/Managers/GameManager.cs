@@ -39,8 +39,9 @@ namespace GS.PongFootball
         private PudSideView sideView = PudSideView.Right;
         public PudSideView SideView
         {
-            get { return sideView;}
-            set { 
+            get { return sideView; }
+            set
+            {
                 sideView = value;
                 ChangeSideView(value == PudSideView.Right ? true : false);
             }
@@ -57,6 +58,7 @@ namespace GS.PongFootball
         public Text computerScoreText;
 
         [HideInInspector] public Vector2 tempVelocityStore = Vector2.zero;
+        private PudSideView tempSideView = PudSideView.Right;
 
         [Header("Puds")]
         [SerializeField] private SpriteRenderer RightSidePudOrPudOne, LeftSidePudOrPudTwo;
@@ -65,7 +67,19 @@ namespace GS.PongFootball
         [HideInInspector] public string CurrentlySelectedPudOneHitAnimation = "USAHit";
         [HideInInspector] public string CurrentlySelectedPudTwoHitAnimation = "BRAHit";
 
-        public int TargetGoal = 3;
+        private int targetGoal = 3;
+        public int TargetGoal
+        {
+            get
+            {
+                return targetGoal;
+            }
+            set
+            {
+                targetGoal = value;
+                UIManager.Instance.TargetGoalText.text = targetGoal.ToString();
+            }
+        }
 
         [Header("Goal Score Sptries")]
         [SerializeField] private List<Sprite> scoreTextSprites;
@@ -126,7 +140,9 @@ namespace GS.PongFootball
                     playerPaddle.paddleType = PaddleType.PLAYER;
                     playerPaddle.speed = 15f;
                     computerPaddle.paddleType = PaddleType.AI;
-                    computerPaddle.speed = 10f;
+                    computerPaddle.speed = DifficultySpeed[UnityEngine.Random.Range(0,3)];
+
+                    TargetGoal = 2; // For Global Multiplayer Small game is better
                     break;
                 case GamePlayMode.LOCAL_MULTIPLAYER:
                     playerPaddle.paddleType = PaddleType.PLAYER;
@@ -146,6 +162,7 @@ namespace GS.PongFootball
             SetComputerScore(0);
             UIManager.Instance.ActivatePauseButtonUI();
             UIManager.Instance.DeActivatePauseButtonInterectable();
+            UIManager.Instance.TargetTextObj.SetActive(true);
         }
         public void NewGame()
         {
@@ -180,7 +197,6 @@ namespace GS.PongFootball
             {
                 IsPlay = false;
                 UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore, true);
-                Debug.Log("GAME OVER");
             }
 
         }
@@ -220,6 +236,11 @@ namespace GS.PongFootball
 
         public void DeActivateBallToPause()
         {
+            if (UIManager.Instance.previousUIState != UI_State.OptionsMenu)
+            {
+                tempSideView = sideView;
+            }
+
             Vector2 _velocity = ball.GetComponent<Rigidbody2D>().velocity;
             if (_velocity != Vector2.zero)
             {
@@ -232,7 +253,14 @@ namespace GS.PongFootball
             ball.gameObject.SetActive(true);
             if (tempVelocityStore != Vector2.zero)
             {
-                ball.GetComponent<Rigidbody2D>().velocity = tempVelocityStore;
+                if (tempSideView == sideView)
+                {
+                    ball.GetComponent<Rigidbody2D>().velocity = tempVelocityStore;
+                }
+                else
+                {
+                    ball.GetComponent<Rigidbody2D>().velocity = new Vector2(tempVelocityStore.x * -1f, tempVelocityStore.y);
+                }
             }
             else
             {
@@ -263,12 +291,10 @@ namespace GS.PongFootball
         }
         public void UpdatePlayerPud(int pudIndex)
         {
-            Debug.Log(pudIndex);
             SetPud(pudContainer.container[pudIndex].Pud, pudContainer.container[pudIndex].PudAnimation, true);
         }
         public void SetPud(Sprite pudSprite, string pudAnimationString, bool isPlayerPud)
         {
-            Debug.Log(pudAnimationString);
             if (isPlayerPud)
             {
                 CurrentlySelectedPudOneHitAnimation = pudAnimationString;
@@ -296,6 +322,7 @@ namespace GS.PongFootball
                 gameWorldObj.localScale = Vector3.one;
                 leftSideScorePanel.localScale = Vector3.one;
                 rightSideScorePanel.localScale = Vector3.one;
+
             }
             else
             {
@@ -303,6 +330,7 @@ namespace GS.PongFootball
                 leftSideScorePanel.localScale = new Vector3(-1f, 1f, 1f);
                 rightSideScorePanel.localScale = new Vector3(-1f, 1f, 1f);
             }
+
         }
 
         #endregion

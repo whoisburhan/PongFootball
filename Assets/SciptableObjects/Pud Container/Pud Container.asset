@@ -25,6 +25,108 @@ MonoBehaviour:
   - Pud: {fileID: -6730494362702700308, guid: 64d963d33bfad004e810a56c7dbf7754, type: 3}
     PudAnimation: GRBHit
     Price: 300
+  - Pud: {fileID: 575657450, guid: 6a84f393779e94c43bd5fe89a506d144, type: 3}
+    PudAnimation: FRA FLAG
+    Price: 200
+  - Pud: {fileID: 1762338707, guid: e88bfb08dee73b84392611a966e95cbf, type: 3}
+    PudAnimation: CHN FLAG
+    Price: 200
+  - Pud: {fileID: -2089572705, guid: 7f93be5174f8f2b40b03663291d7f2d1, type: 3}
+    PudAnimation: JPN FLAG
+    Price: 200
+  - Pud: {fileID: 1110558389, guid: 7dfc7a33cf3852e47bd2e535978fdda5, type: 3}
+    PudAnimation: KOR FLAG
+    Price: 200
+  - Pud: {fileID: -660165950, guid: 8cefa88a57cf7bc4eb93b66eed88c459, type: 3}
+    PudAnimation: GER FLAG
+    Price: 200
+  - Pud: {fileID: 1041933142, guid: 07ddd6d45ba208549a4a201dc45697c3, type: 3}
+    PudAnimation: ENG FLAG
+    Price: 200
   - Pud: {fileID: 4804968741856182828, guid: 8c97eb9e213cc4343b75274a2a531385, type: 3}
     PudAnimation: BRAHit
+    Price: 200
+  - Pud: {fileID: 1217552411, guid: 2ca4ec7bd47f56049967a12402ac7e38, type: 3}
+    PudAnimation: ARG_Pud
+    Price: 200
+  - Pud: {fileID: 1889481675, guid: b7e97d017b460084e861f0fdb8385899, type: 3}
+    PudAnimation: BEL FLAG
+    Price: 200
+  - Pud: {fileID: 1098171206, guid: e80bb40f0bf4bdc429fa00574a8051e8, type: 3}
+    PudAnimation: POR FLAG
+    Price: 200
+  - Pud: {fileID: -1414932980, guid: c6e398f4ddf04bc4292d78c0169d4f75, type: 3}
+    PudAnimation: ITA FLAG
+    Price: 200
+  - Pud: {fileID: 1417478474, guid: 7781ec9496b13fc45b16a9f22a397e6b, type: 3}
+    PudAnimation: POL FLAG
+    Price: 200
+  - Pud: {fileID: 2022856541, guid: ef7172afc9ee18f4fb8489d804ec9b85, type: 3}
+    PudAnimation: QAT FLAG
+    Price: 200
+  - Pud: {fileID: 237716136, guid: 133d9e917da2ff64db44a6f0c6104291, type: 3}
+    PudAnimation: SAR FLAG
+    Price: 200
+  - Pud: {fileID: 174807174, guid: e743a2ec8cdaf5b4cadb60d476b798cc, type: 3}
+    PudAnimation: MOR FLAG
+    Price: 200
+  - Pud: {fileID: 1494022096, guid: d18a05ce17faa49429406c414397a943, type: 3}
+    PudAnimation: IRN FLAG
+    Price: 200
+  - Pud: {fileID: 1909020578, guid: 0ae724cb02307c643853ac92942cda39, type: 3}
+    PudAnimation: SPA FLAG
+    Price: 200
+  - Pud: {fileID: 1429209299, guid: 4464766b0abd24b4fadd3d36e7819550, type: 3}
+    PudAnimation: NED FLAG
+    Price: 200
+  - Pud: {fileID: -1603550562, guid: b2b663286c79a394ab3aa7cd017e21d8, type: 3}
+    PudAnimation: MEX FLAG
+    Price: 200
+  - Pud: {fileID: -141767948, guid: b9e52220e86a1474bb2158a10027e555, type: 3}
+    PudAnimation: DEN FLAG
+    Price: 200
+  - Pud: {fileID: 1021421839, guid: 205115c88edaf974a93361202da46721, type: 3}
+    PudAnimation: CRO FLAG
+    Price: 200
+  - Pud: {fileID: -1702681329, guid: 427abf09551cf5a4bb7a96201dbd5d9a, type: 3}
+    PudAnimation: CAN FLAG
+    Price: 200
+  - Pud: {fileID: -491464004, guid: d8985afa344a7bb4b8202aa4b29e2dd2, type: 3}
+    PudAnimation: INA FLAG
+    Price: 200
+  - Pud: {fileID: 894790457, guid: dbaedc7463f69f44289734f61cbfd901, type: 3}
+    PudAnimation: BAN FLAG
+    Price: 200
+  - Pud: {fileID: 1304764248, guid: 67063114f907fd34cae9c2a183d2f7fd, type: 3}
+    PudAnimation: IND FLAG
+    Price: 200
+  - Pud: {fileID: 1601468943, guid: 804e38496fa21a544986ca97806b1390, type: 3}
+    PudAnimation: PAK FLAG
+    Price: 200
+  - Pud: {fileID: 1580711272, guid: c9450231ef59aa44589677cfcfd84dd3, type: 3}
+    PudAnimation: TUN FLAG
+    Price: 200
+  - Pud: {fileID: -1955161966, guid: 6fba47d5dc8e07e46b82fd052dbcc117, type: 3}
+    PudAnimation: URU FLAG
+    Price: 200
+  - Pud: {fileID: 891457947, guid: 9d1deb00c689d774d8f1a7f62afa18ab, type: 3}
+    PudAnimation: ECU FLAG
+    Price: 200
+  - Pud: {fileID: -2035679656, guid: 76cc80ff981e6c449bde2479518b4443, type: 3}
+    PudAnimation: CAM FLAG
+    Price: 200
+  - Pud: {fileID: 1226967603, guid: 88a9f74182d0b8e4c91d99af889bcc9a, type: 3}
+    PudAnimation: SEN FLAG
+    Price: 200
+  - Pud: {fileID: 2086565391, guid: 99157dc047f678b439010408473e3f7c, type: 3}
+    PudAnimation: SER FLAG
+    Price: 200
+  - Pud: {fileID: 1177571181, guid: 5f1b9940b10715a4586bcc6b840d8e97, type: 3}
+    PudAnimation: SWZ FLAG
+    Price: 200
+  - Pud: {fileID: 598968254, guid: b76a6164fcc0dcb4ca8748ebf061da80, type: 3}
+    PudAnimation: RUS FLAG
+    Price: 200
+  - Pud: {fileID: 1014379075, guid: e244a6418f3d42a4dbb101be89c6c968, type: 3}
+    PudAnimation: UKR FLAG
     Price: 200

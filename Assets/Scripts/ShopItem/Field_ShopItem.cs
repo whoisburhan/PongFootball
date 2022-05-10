@@ -28,7 +28,6 @@ namespace GS.PongFootball
             sandLayerImg.color = groundObject.SandColor;
             fieldStyleImg.color = groundObject.FieldPatternColor;
 
-            Debug.Log((int)groundObject.m_FieldPattern);
             fieldStyleImg.sprite = GroundChanger.Instance.FieldPatterns[(int)groundObject.m_FieldPattern];
 
             price = groundObject.Price;
