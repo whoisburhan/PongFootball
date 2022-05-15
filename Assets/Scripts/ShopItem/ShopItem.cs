@@ -88,26 +88,44 @@ namespace GS.PongFootball
 
         protected virtual void BuyItem()
         {
-            if(CoinSystem.Instance.GetCoin()>= price)
+            if (CoinSystem.Instance.GetCoin() >= price)
             {
                 // After Buying
                 CoinSystem.Instance.DeductCoin(price);
                 //
-
-                EquipeItem();
-               // UpdateShopItemState(ShopItemState.EQUIPE);
+                PushNotification.Instance.SetNotificationColor(PushNotificationColor.GREEN);
+                PushNotification.Instance.ShowNotification("Purchased & Used");
+                EquipeItem(true);
+                // UpdateShopItemState(ShopItemState.EQUIPE);
             }
             else
             {
                 Debug.Log("FOINNI");
+                PushNotification.Instance.SetNotificationColor(PushNotificationColor.RED);
+                PushNotification.Instance.ShowNotification("Not Enough Coin..");
+                AudioManager.Instance.Play(AudioName.WARNING);
             }
 
             Debug.Log("BUY ITEM Function Executed");
         }
 
-        protected virtual void EquipeItem() { /*EQUIP ITEM Function Execute */ }
+        protected virtual void EquipeItem(bool buyAndEquipe = false)
+        {
+            Debug.Log(buyAndEquipe);
+            /*EQUIP ITEM Function Execute */
+            if (!buyAndEquipe)
+            {
+                PushNotification.Instance.SetNotificationColor(PushNotificationColor.YELLOW);
+                PushNotification.Instance.ShowNotification("Used");
+                AudioManager.Instance.Play(AudioName.BUTTON_CLICK);
+            }
+        }
 
-        protected virtual void EquipedItem() { /*EQUIPED ITEM Function Execute */ }
+        protected virtual void EquipedItem()
+        {
+            /*EQUIPED ITEM Function Execute */
+
+        }
 
         public virtual void ActivateItem()
         {

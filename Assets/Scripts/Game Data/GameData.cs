@@ -10,7 +10,7 @@ namespace GS.PongFootball
     public class SaveState
     {
         public int[] Balls = new int[10] { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        public int[] Grounds = new int[7] { 2, 0, 0, 0, 0, 0, 0 };
+        public int[] Grounds = new int[8] { 2, 0, 0, 0, 0, 0, 0, 0 };
 
         public int[] Puds = new int[38] { 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         public int HighScore { get; set; }

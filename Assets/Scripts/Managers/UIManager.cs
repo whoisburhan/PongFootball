@@ -609,7 +609,19 @@ namespace GS.PongFootball
 
             startMenuCanvasClass.localButton.onClick.AddListener(() => { PlayLocalButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.globalButton.onClick.AddListener(() => { PlayGlobalButtonFunc(); PlayButtonClickSound(); });
+            startMenuCanvasClass.globalButton.onClick.AddListener(() =>
+            {
+                if (Application.internetReachability != NetworkReachability.NotReachable)
+                {
+                    PlayGlobalButtonFunc(); PlayButtonClickSound();
+                }
+                else
+                {
+                    PushNotification.Instance.SetNotificationColor(PushNotificationColor.RED);
+                    PushNotification.Instance.ShowNotification("No Internet . . .");
+                    PlayNotificationSound();
+                }
+            });
         }
 
         private void PlayButtonFunc()
@@ -1253,7 +1265,7 @@ namespace GS.PongFootball
 
         #region Common Functions
 
-        private void Home()
+        public void Home()
         {
             ActivateStartMenuCanvas();
         }

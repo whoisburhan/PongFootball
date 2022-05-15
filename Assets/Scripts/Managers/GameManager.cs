@@ -95,6 +95,11 @@ namespace GS.PongFootball
         [SerializeField] private Transform leftSideScorePanel;
         [SerializeField] private Transform rightSideScorePanel;
 
+
+        [Header("Global Multiplayer Timer")]
+        [SerializeField] private float connectionRetrivalTime = 10f;
+        private float connectionRetrivalTimer;
+
         private void Awake()
         {
             if (Instance == null)
@@ -109,6 +114,7 @@ namespace GS.PongFootball
         }
         private void Start()
         {
+            connectionRetrivalTimer = connectionRetrivalTime;
             IsVibrateModeOn = true;
             IsSoundModeOn = true;
             IsPlay = false;
@@ -122,6 +128,39 @@ namespace GS.PongFootball
             if (Input.GetKeyDown(KeyCode.R))
             {
                 StartCountDown();
+            }
+
+            if (PlayMode == GamePlayMode.GLOBAL_MULTIPLAYER)
+            {
+                if (Application.internetReachability == NetworkReachability.NotReachable)
+                {
+                    GameManager.Instance.IsPlay = false;
+                    GameManager.Instance.DeActivateBallToPause();
+
+                    PushNotification.Instance.SetNotificationColor(PushNotificationColor.RED);
+                    PushNotification.Instance.ShowNotification_Long("Connecting...");
+
+                    connectionRetrivalTimer -= Time.deltaTime;
+
+                    if (connectionRetrivalTimer <= 0)
+                    {
+                        PushNotification.Instance.HideNotification();
+                        SetPlayerScore(0);
+                        SetComputerScore(0);
+                        UIManager.Instance.Home();
+                        connectionRetrivalTimer = connectionRetrivalTime;
+                    }
+                }
+
+                else if(Application.internetReachability != NetworkReachability.NotReachable && connectionRetrivalTimer != connectionRetrivalTime)
+                {
+                    PushNotification.Instance.SetNotificationColor(PushNotificationColor.GREEN);
+                    PushNotification.Instance.ShowNotification("Connected");
+
+                    GameManager.Instance.ActivateBallFromPause();
+                    GameManager.Instance.IsPlay = true;
+                    connectionRetrivalTimer = connectionRetrivalTime;
+                }
             }
 
         }
@@ -140,7 +179,7 @@ namespace GS.PongFootball
                     playerPaddle.paddleType = PaddleType.PLAYER;
                     playerPaddle.speed = 15f;
                     computerPaddle.paddleType = PaddleType.AI;
-                    computerPaddle.speed = DifficultySpeed[UnityEngine.Random.Range(0,3)];
+                    computerPaddle.speed = DifficultySpeed[UnityEngine.Random.Range(0, 3)];
 
                     TargetGoal = 2; // For Global Multiplayer Small game is better
                     break;

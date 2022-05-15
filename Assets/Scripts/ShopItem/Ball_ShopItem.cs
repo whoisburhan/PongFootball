@@ -36,12 +36,12 @@ namespace GS.PongFootball
 
         }
 
-        protected override void EquipeItem()
+        protected override void EquipeItem(bool buyAndEquipe = false)
         {
             base.EquipeItem();
             ActivateItem();
         }
-
+        
         public override void ActivateItem()
         {
             Shop.Instance.CurrentlySelectedShopItemBall.UpdateShopItemState(ShopItemState.EQUIPE);           
