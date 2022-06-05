@@ -652,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -190612.9}
+  m_AnchoredPosition: {x: 0, y: -195362.27}
   m_SizeDelta: {x: 897.46, y: 4431.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &45271531
@@ -2917,14 +2917,9 @@ MonoBehaviour:
     index: 0
     LanguagesName:
     - English
-    - "\u65E5\u672C\u8A9E"
-    - "\u4E2D\u6587"
-    - "\uD55C\uAD6D\uC5B4"
-    - "\u064A\u0628\u0631\u0639"
     - "Fran\xE7aise"
     - "Espa\xF1ola"
     - Deutsch
-    - "P\u0443\u0441\u0441\u043A\u0438\u0439"
     - Bahasa
   setMatchCanvasClass:
     globalMultiplayerCanvasClass:
@@ -21266,7 +21261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -188851.6}
+  m_AnchoredPosition: {x: 0, y: -193600.95}
   m_SizeDelta: {x: 897.46, y: 909.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632041017
@@ -26229,7 +26224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -188961.81}
+  m_AnchoredPosition: {x: 0, y: -193711.17}
   m_SizeDelta: {x: 897.46, y: 1129.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986100529

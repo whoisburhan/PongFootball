@@ -10,6 +10,7 @@ public static class Vibrator
 
     public static void Vibrate(long miliSeconds = 250)
     {
+        #if UNITY_ANDROID
         if (IsAndroid())
         {
             vibrator.Call("vibrate", miliSeconds);
@@ -18,14 +19,17 @@ public static class Vibrator
         {
             Handheld.Vibrate();
         }
+        #endif
     }
 
     public static void Cancel()
     {
+        #if UNITY_ANDROID
         if (IsAndroid())
         {
             vibrator.Call("cancel");
         }
+        #endif
     }
 
     public static bool IsAndroid()

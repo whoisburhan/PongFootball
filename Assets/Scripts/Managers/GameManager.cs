@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using System.Collections;
+using CrazyGames;
 
 namespace GS.PongFootball
 {
@@ -152,7 +153,7 @@ namespace GS.PongFootball
                     }
                 }
 
-                else if(Application.internetReachability != NetworkReachability.NotReachable && connectionRetrivalTimer != connectionRetrivalTime)
+                else if (Application.internetReachability != NetworkReachability.NotReachable && connectionRetrivalTimer != connectionRetrivalTime)
                 {
                     PushNotification.Instance.SetNotificationColor(PushNotificationColor.GREEN);
                     PushNotification.Instance.ShowNotification("Connected");
@@ -235,7 +236,14 @@ namespace GS.PongFootball
             else
             {
                 IsPlay = false;
-                UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore, true);
+                CrazyAds.Instance.beginAdBreak(() =>
+                {
+                    UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore, true);
+                },
+                () =>
+                {
+                    UIManager.Instance.ActivateResultMenuCanvas(playerScore > computerScore, true);
+                });
             }
 
         }

@@ -17,6 +17,10 @@ namespace GS.PongFootball
         {0,"en"}, {1,"ja"},{2,"zh-Hans"},{3,"ko"},{4,"ar"},{5,"fr"},{6,"es"},{7,"de"},{8,"ru"},{9,"id"}
         };
 
+        private Dictionary<int, string> languagesCode_WebGL = new Dictionary<int, string> {
+        {0,"en"},{1,"fr"},{2,"es"},{3,"de"},{4,"id"}
+        };
+
         public int SelectedLanguage
         {
             get
@@ -58,7 +62,7 @@ namespace GS.PongFootball
         {
             //var a = LocalizationSettings.SelectedLocale;
             //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
-            LocalizationSettings.SelectedLocale = availableLanguages[languagesCode[index]];
+            LocalizationSettings.SelectedLocale = availableLanguages[languagesCode_WebGL[index]];
             Debug.Log("OK");
         }
 
