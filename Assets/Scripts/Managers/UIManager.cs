@@ -488,6 +488,8 @@ namespace GS.PongFootball
         [SerializeField] public GameObject TargetTextObj;
         [SerializeField] public Text TargetGoalText;
 
+        [SerializeField] private GameObject ControlGuide;
+
         [SerializeField] private StartMenuCanvasClass startMenuCanvasClass;
         [SerializeField] private PauseMenuCanvasClass pauseMenuCanvasClass;
         [SerializeField] private OptionsMenuCanvasClass optionsMenuCanvasClass;
@@ -577,6 +579,7 @@ namespace GS.PongFootball
             startMenuCanvasClass.startMenuCanvasGroup.blocksRaycasts = true;
             startMenuCanvasClass.startMenuButtonsParentTransform.DOScale(Vector3.one, 1f);
             startMenuCanvasClass.titleImgTransform.DOMove(startMenuCanvasClass.titleImgEndPos.position, 1f);
+            ControlGuide.SetActive(false);
 
             SetUIState(UI_State.StartMenu);
         }
@@ -597,11 +600,11 @@ namespace GS.PongFootball
         {
             startMenuCanvasClass.playButton.onClick.AddListener(() => { PlayButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); PlayButtonClickSound(); });
+            startMenuCanvasClass.rateButton.onClick.AddListener(() => { SelectedLanguageButtonFunc(); PlayButtonClickSound(); });
 
             startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.shareButton.onClick.AddListener(() => { startMenuCanvasClass.MultiplayerButtonFunc(); PlayButtonClickSound(); });
+            startMenuCanvasClass.shareButton.onClick.AddListener(() => { /*startMenuCanvasClass.MultiplayerButtonFunc();*/PlayLocalButtonFunc(); PlayButtonClickSound(); });
 
             startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); PlayButtonClickSound(); });
 
@@ -641,6 +644,7 @@ namespace GS.PongFootball
                 GameManager.Instance.PlayMode = GamePlayMode.LOCAL_MULTIPLAYER;
                 setMatchCanvasClass.ActivateSetMatchMenuCanvas();
                 ActivatePauseButtonUI();
+                ControlGuide.SetActive(true);
             });
         }
 
