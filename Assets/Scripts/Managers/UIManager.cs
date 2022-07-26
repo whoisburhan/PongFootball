@@ -806,10 +806,14 @@ namespace GS.PongFootball
             if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
             {
                 resultCanvasClass.matchResultImg.sprite = isWon ? resultCanvasClass.matchWinSprite : resultCanvasClass.matchLoseSprite;
+                AudioManager.Instance.Stop();
+                AudioManager.Instance.Play(isWon ? AudioName.WIN_SOUND : AudioName.LOSE_SOUND);
             }
             else
             {
                 resultCanvasClass.matchResultImg.sprite = isWon ? resultCanvasClass.matchWinBlueSprite : resultCanvasClass.matchWinPurpleSprite;
+                AudioManager.Instance.Stop();
+                AudioManager.Instance.Play(AudioName.WIN_SOUND);
             }
             resultCanvasClass.resultCanvasGroup.alpha = 1f;
             resultCanvasClass.resultCanvasGroup.interactable = true;
@@ -820,28 +824,44 @@ namespace GS.PongFootball
                 {
                     if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
                     {
-                        CoinAddAnimation(isWon ? 100 : 20);
+                        resultCanvasClass.coinRewardText.DOCounter(0, isWon ? 100 : 20, 0.25f).OnComplete(() =>
+                        {
+                            resultCanvasClass.coinRewardText.DOCounter(isWon ? 100 : 20, isWon ? 100 : 20, 0.5f).OnComplete(() =>
+                            {
+                                CoinAddAnimation(isWon ? 100 : 20);
+                            });
+
+                        });
+
                     }
                     else
                     {
-                        CoinAddAnimation(10);
+                        resultCanvasClass.coinRewardText.DOCounter(0, 10, 0.25f).OnComplete(() =>
+                        {
+                            resultCanvasClass.coinRewardText.DOCounter(10, 10, 0.5f).OnComplete(() =>
+                            {
+                                CoinAddAnimation(10);
+                            });
+
+                        });
+
                     }
                 }
             });
 
             SetUIState(UI_State.ResultMenu);
 
-            if (giveReward)
-            {
-                if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
-                {
-                    resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
-                }
-                else
-                {
-                    resultCanvasClass.ResultCoinAmount = 10;
-                }
-            }
+            // if (giveReward)
+            // {
+            //     if (GameManager.Instance.PlayMode != GamePlayMode.LOCAL_MULTIPLAYER)
+            //     {
+            //         resultCanvasClass.ResultCoinAmount = isWon ? 100 : 20;
+            //     }
+            //     else
+            //     {
+            //         resultCanvasClass.ResultCoinAmount = 10;
+            //     }
+            // }
 
             if (GameManager.Instance.PlayMode == GamePlayMode.GLOBAL_MULTIPLAYER)
             {

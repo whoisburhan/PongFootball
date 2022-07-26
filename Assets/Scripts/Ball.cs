@@ -63,7 +63,7 @@ namespace GS.PongFootball
 
         public void OnCollisionEnter2D(Collision2D col)
         {
-            AudioManager.Instance.Play(AudioName.BALL_HIT);
+            AudioManager.Instance.Play(Random.Range(5,10)); // Ball Hit Sounds
 
             var pos = col.collider.ClosestPoint(transform.position);
             ballHitEffect.SetActive(false);

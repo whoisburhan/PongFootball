@@ -9,7 +9,8 @@ namespace GS.PongFootball
     {
         public static AudioManager Instance { get; private set; }
 
-        private AudioSource audioSource;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioSource backgroundMusicSource;
 
         [SerializeField] private List<AudioClip> sounds;
 
@@ -25,17 +26,29 @@ namespace GS.PongFootball
                 Destroy(this);
             }
 
-            audioSource = GetComponent<AudioSource>();
+          //  audioSource = GetComponent<AudioSource>();
         }
 
         public void Play(AudioName audioName)
         {
+            audioSource.pitch = 1f;
             audioSource.PlayOneShot(sounds[(int)audioName]);
+        }
+
+        public void Play(int index)
+        {
+            audioSource.PlayOneShot(sounds[index]);
+        }
+
+        public void Stop()
+        {
+            audioSource.Stop();
         }
 
         public void MuteUnmute(bool isMute)
         {
             audioSource.mute = isMute;
+            backgroundMusicSource.mute = isMute;
         }
 
 
@@ -43,6 +56,7 @@ namespace GS.PongFootball
 
     public enum AudioName
     {
-        FREE_KICK = 0, GOAL_SOUND, BALL_HIT, COIN_SOUND, BUTTON_CLICK, WARNING
+        FREE_KICK = 0, GOAL_SOUND, COIN_SOUND, BUTTON_CLICK, WARNING, BALL_HIT,
+        WIN_SOUND = 10, LOSE_SOUND = 11
     }
 }

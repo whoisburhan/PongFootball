@@ -243,12 +243,14 @@ namespace GS.PongFootball
         public void PlayerScores()
         {
             SetPlayerScore(playerScore + 1);
+            AudioManager.Instance.Play(AudioName.GOAL_SOUND);
             //StartRound();
         }
 
         public void ComputerScores()
         {
             SetComputerScore(computerScore + 1);
+            AudioManager.Instance.Play(AudioName.GOAL_SOUND);
             //StartRound();
         }
 
