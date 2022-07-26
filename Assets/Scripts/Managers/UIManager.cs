@@ -116,6 +116,9 @@ namespace GS.PongFootball
         public Button leftSideArrowButton;
         public Button rightSideArrowButton;
 
+        [Header("Version")]
+        public Text versionText;
+
         public void ActivateSideViewOption()
         {
             SideViewTextImg.color = new Color(SideViewTextImg.color.r, SideViewTextImg.color.g, SideViewTextImg.color.b, 1f);
@@ -365,6 +368,16 @@ namespace GS.PongFootball
 
         public void DeActivateSetMatchMenuCanvas(Action action = null)
         {
+            try
+            {
+                if (AdmobAds.instance != null)
+                {
+                    AdmobAds.instance.reqBannerAd(GoogleMobileAds.Api.AdPosition.Bottom);
+                }
+            }
+            catch (Exception e) { }
+
+
             SetMatchCanvasGroup.interactable = false;
             SetMatchCanvasGroup.blocksRaycasts = false;
             SetMatchCanvasButtonsParentTransform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
@@ -568,6 +581,15 @@ namespace GS.PongFootball
         #region Start Menu Canvas Func
         public void ActivateStartMenuCanvas()
         {
+            try
+            {
+                if (AdmobAds.instance != null)
+                {
+                    AdmobAds.instance.hideBanner();
+                }
+            }
+            catch (Exception e) { }
+
             GameManager.Instance.PlayMode = GamePlayMode.OFFLINE;
             GameManager.Instance.IsPlay = false;
             DeActivatePauseButtonInterectable();
@@ -595,7 +617,10 @@ namespace GS.PongFootball
 
         private void InItStartMenuButtonsFunc()
         {
-            startMenuCanvasClass.playButton.onClick.AddListener(() => { PlayButtonFunc(); PlayButtonClickSound(); });
+            startMenuCanvasClass.playButton.onClick.AddListener(() =>
+            {
+                PlayButtonFunc(); PlayButtonClickSound();
+            });
 
             startMenuCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); PlayButtonClickSound(); });
 
@@ -1019,6 +1044,10 @@ namespace GS.PongFootball
             optionsMenuCanvasClass.vibrationButton.onClick.AddListener(() => { VibrationSettingsFunc(); PlayButtonClickSound(); });
             optionsMenuCanvasClass.leftSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); PlayButtonClickSound(); });
             optionsMenuCanvasClass.rightSideArrowButton.onClick.AddListener(() => { ChangeSideViewButton(); PlayButtonClickSound(); });
+
+
+            // Version Text Update
+            optionsMenuCanvasClass.versionText.text = "Version - " + Application.version;
         }
 
         private void SoundSettingsFunc()
@@ -1254,6 +1283,7 @@ namespace GS.PongFootball
 
         public void ActivateShopMenuCanvas()
         {
+
             SetUIState(UI_State.ShopMenu);
             shopCanvasClass.shopCanvasGroup.alpha = 1;
             shopCanvasClass.shopCanvasGroup.interactable = true;
@@ -1292,7 +1322,7 @@ namespace GS.PongFootball
 
         private void RateUs()
         {
-            Application.OpenURL("https://www.google.com");
+            Application.OpenURL("https://play.google.com/store/apps/details?id=com.GameSeekersStudio.PongSoccer");
         }
 
         public void PlayButtonClickSound()
