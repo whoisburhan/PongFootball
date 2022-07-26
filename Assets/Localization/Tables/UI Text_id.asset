@@ -122,6 +122,10 @@ MonoBehaviour:
     m_Localized: Yakin
     m_Metadata:
       m_Items: []
+  - m_Id: 33844899345231872
+    m_Localized: Fitting
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

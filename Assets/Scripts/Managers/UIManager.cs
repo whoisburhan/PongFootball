@@ -9,7 +9,7 @@ namespace GS.PongFootball
 {
     public enum UI_State
     {
-        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu, SetGamePointAndDifficulty, GlobalMultiplayer
+        Null = 0, StartMenu, PauseMenu, OptionsMenu, ResultMenu, QuitMenu, RestartConfimationMenu, ShopMenu, LanguageMenu, SetGamePointAndDifficulty, GlobalMultiplayer, WorldCupFixture
     }
 
     [Serializable]
@@ -224,6 +224,16 @@ namespace GS.PongFootball
         public CanvasGroup shopCanvasGroup;
 
         public Transform shopCanvasButtonsParentTransform;
+
+        public Button ConfirmButton;
+    }
+
+    [Serializable]
+    class WorldCupFixtureCanvasClass
+    {
+        public CanvasGroup worldCupFixtureCanvasGroup;
+
+        public Transform worldCupFixtureButtonsParentTransform;
 
         public Button ConfirmButton;
     }
@@ -512,6 +522,7 @@ namespace GS.PongFootball
         [SerializeField] private SetMatchCanvasClass setMatchCanvasClass;
 
         [SerializeField] private ShopCanvasClass shopCanvasClass;
+        [SerializeField] private WorldCupFixtureCanvasClass worldCupFixtureCanvasClass;
 
         [Header("Buttons")]
         [SerializeField] private Button pasueButton;
@@ -558,6 +569,7 @@ namespace GS.PongFootball
             InitQuitMenuButtonsFunc();
             InitRestartConfimationMenuButtonsFunc();
             InitShopMenuButtonsFunc();
+            InitWorldCupFixtureMenuButtonsFunc();
             languageCanvasClass.Init();
             setMatchCanvasClass.Init();
         }
@@ -622,7 +634,7 @@ namespace GS.PongFootball
                 PlayButtonFunc(); PlayButtonClickSound();
             });
 
-            startMenuCanvasClass.rateButton.onClick.AddListener(() => { RateUs(); PlayButtonClickSound(); });
+            startMenuCanvasClass.rateButton.onClick.AddListener(() => { /*RateUs();*/ WorlCupFixtureButtonFunc(); PlayButtonClickSound(); });
 
             startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); PlayButtonClickSound(); });
 
@@ -697,6 +709,14 @@ namespace GS.PongFootball
             DeActivateStartMenuCanvas(() =>
             {
                 ActivateShopMenuCanvas();
+            });
+        }
+
+        private void WorlCupFixtureButtonFunc()
+        {
+            DeActivateStartMenuCanvas(() =>
+            {
+                ActivateWorldCupFixtureMenuCanvas();
             });
         }
 
@@ -1310,6 +1330,40 @@ namespace GS.PongFootball
         private void ShopConfimButtonFunc()
         {
             DeActivateShopMenuCanvas(() => { ActivateStartMenuCanvas(); });
+        }
+        #endregion
+
+        #region  Shop Menu Canvas Func
+
+        public void ActivateWorldCupFixtureMenuCanvas()
+        {
+
+            SetUIState(UI_State.WorldCupFixture);
+            worldCupFixtureCanvasClass.worldCupFixtureCanvasGroup.alpha = 1;
+            worldCupFixtureCanvasClass.worldCupFixtureCanvasGroup.interactable = true;
+            worldCupFixtureCanvasClass.worldCupFixtureCanvasGroup.blocksRaycasts = true;
+            worldCupFixtureCanvasClass.worldCupFixtureButtonsParentTransform.DOScale(Vector3.one, 0.7f);
+        }
+
+        public void DeActivateWorldCupFixtureMenuCanvas(Action action = null)
+        {
+            worldCupFixtureCanvasClass.worldCupFixtureCanvasGroup.interactable = false;
+            worldCupFixtureCanvasClass.worldCupFixtureCanvasGroup.blocksRaycasts = false;
+            worldCupFixtureCanvasClass.worldCupFixtureButtonsParentTransform.DOScale(Vector3.zero, 0.2f).OnComplete(() =>
+            {
+                worldCupFixtureCanvasClass.worldCupFixtureCanvasGroup.alpha = 0;
+                if (action != null) action?.Invoke();
+            });
+        }
+
+        private void InitWorldCupFixtureMenuButtonsFunc()
+        {
+            worldCupFixtureCanvasClass.ConfirmButton.onClick.AddListener(() => { WorldCupFixtureConfimButtonFunc(); PlayButtonClickSound(); });
+        }
+
+        private void WorldCupFixtureConfimButtonFunc()
+        {
+            DeActivateWorldCupFixtureMenuCanvas(() => { ActivateStartMenuCanvas(); });
         }
         #endregion
 
