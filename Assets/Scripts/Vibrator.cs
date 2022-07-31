@@ -8,6 +8,7 @@ public static class Vibrator
     public static AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService","vibrator");
 #endif
 
+#if UNITY_ANDROID || UNITYI_IOS
     public static void Vibrate(long miliSeconds = 250)
     {
         if (IsAndroid())
@@ -28,6 +29,7 @@ public static class Vibrator
         }
     }
 
+#endif
     public static bool IsAndroid()
     {
 #if UNITY_ANDROID

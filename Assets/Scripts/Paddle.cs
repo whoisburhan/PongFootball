@@ -38,7 +38,7 @@ namespace GS.PongFootball
                 if (GameManager.Instance.IsPlay)
                 {
                     TouchInput();
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_WEBGL
                     KeyBoardInput();
 #endif
 

@@ -378,6 +378,7 @@ namespace GS.PongFootball
 
         public void DeActivateSetMatchMenuCanvas(Action action = null)
         {
+#if UNITY_ANDROID || UNITYI_IOS
             try
             {
                 if (AdmobAds.instance != null)
@@ -386,6 +387,7 @@ namespace GS.PongFootball
                 }
             }
             catch (Exception e) { }
+#endif
 
 
             SetMatchCanvasGroup.interactable = false;
@@ -531,11 +533,22 @@ namespace GS.PongFootball
 
         private bool tempWinStatus = true;  //Hold Win or lose status value
 
+        // private void OnEnable()
+        // {
+        //     GameDistribution.OnRewardGame += GameManager.Instance.StartCountDown;
+        // }
+
+        // private void OnDisable()
+        // {
+        //     GameDistribution.OnRewardGame -= GameManager.Instance.StartCountDown;
+        // }
+
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
+                GameDistribution.OnRewardedVideoSuccess += PauseMenuRestartButtonFunc;
                 DontDestroyOnLoad(this.gameObject);
             }
             else
@@ -593,14 +606,17 @@ namespace GS.PongFootball
         #region Start Menu Canvas Func
         public void ActivateStartMenuCanvas()
         {
+#if UNITY_ANDROID || UNITYI_IOS
             try
             {
                 if (AdmobAds.instance != null)
                 {
                     AdmobAds.instance.hideBanner();
                 }
+                
             }
             catch (Exception e) { }
+#endif
 
             GameManager.Instance.PlayMode = GamePlayMode.OFFLINE;
             GameManager.Instance.IsPlay = false;
@@ -638,7 +654,7 @@ namespace GS.PongFootball
 
             startMenuCanvasClass.optionsButton.onClick.AddListener(() => { OptionsButtonFunc(); PlayButtonClickSound(); });
 
-            startMenuCanvasClass.shareButton.onClick.AddListener(() => { startMenuCanvasClass.MultiplayerButtonFunc(); PlayButtonClickSound(); });
+            startMenuCanvasClass.shareButton.onClick.AddListener(() => { /*startMenuCanvasClass.MultiplayerButtonFunc();*/ PlayLocalButtonFunc(); PlayButtonClickSound(); });
 
             startMenuCanvasClass.moreGamesButton.onClick.AddListener(() => { ShopButtonFunc(); PlayButtonClickSound(); });
 
@@ -668,6 +684,10 @@ namespace GS.PongFootball
                 GameManager.Instance.PlayMode = GamePlayMode.OFFLINE;
                 setMatchCanvasClass.ActivateSetMatchMenuCanvas();
                 ActivatePauseButtonUI();
+
+#if UNITY_WEBGL
+                GameDistributionAds.Instance.ShowAds();
+#endif
             });
         }
 
@@ -809,7 +829,14 @@ namespace GS.PongFootball
                 Home();
             });
 
-            pauseMenuCanvasClass.restartButton.onClick.AddListener(() => { PauseMenuRestartButtonFunc(); PlayNotificationSound(); });
+            pauseMenuCanvasClass.restartButton.onClick.AddListener(() =>
+            {
+                #if UNITY_WEBGL
+                GameDistributionAds.Instance.ShowRewardedAd();
+                #endif
+                //PauseMenuRestartButtonFunc(); 
+                PlayNotificationSound();
+            });
 
             pauseMenuCanvasClass.optionsButton.onClick.AddListener(() => { PauseMenuOptionsButtonFunc(); PlayButtonClickSound(); });
 
@@ -823,7 +850,8 @@ namespace GS.PongFootball
 
         private void PauseMenuRestartButtonFunc()
         {
-            DeActivatePauseMenuCanvas(false, () => { ActivateReStartConfimationMenuCanvas(); });
+           // DeActivatePauseMenuCanvas(false, () => { ActivateReStartConfimationMenuCanvas(); });
+           DeActivatePauseMenuCanvas(false, () => { GameManager.Instance.StartCountDown(); });
         }
 
         private void PauseMenuOptionsButtonFunc()
@@ -933,6 +961,10 @@ namespace GS.PongFootball
         {
             resultCanvasClass.homeButton.onClick.AddListener(() =>
             {
+#if UNITY_WEBGL
+                GameDistributionAds.Instance.ShowAds();
+#endif
+
                 PlayButtonClickSound();
                 DeActivateResultMenuCanvas();
 
