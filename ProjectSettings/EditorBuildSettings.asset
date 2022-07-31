@@ -9,5 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PongFootball.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 8a11ed5ce023b8c49917164206407d46, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 3cc19a412f45af843bfcfbfdbaab70cf, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 69ea73e4c3491ea449cdabb26e78ac26, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: 0169b54e683dc524899c5a464937cc87, type: 2}
